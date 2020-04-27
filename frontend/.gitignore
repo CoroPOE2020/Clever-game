@@ -1,0 +1,5 @@
+/node_modules
+/package-lock.json
+
+###> Mac system file ###
+.DS_Store
