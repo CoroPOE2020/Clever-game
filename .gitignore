@@ -1,5 +1,6 @@
 ###>Environment file ###
 /.env
+/docker/data/db
 
 ###> Mac system file ###
 .DS_Store
