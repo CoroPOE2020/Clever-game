@@ -1,4 +1,4 @@
-# Get started project 2
+# Get started project
 
 ## Initialize project
 
