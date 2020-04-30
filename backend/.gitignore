@@ -5,7 +5,10 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+<<<<<<< HEAD
 /src/Migrations
+=======
+>>>>>>> 1a970151076977d4767b821c52648ef9d860037b
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -14,4 +17,8 @@
 .phpunit
 .phpunit.result.cache
 /phpunit.xml
+<<<<<<< HEAD
 ###< symfony/phpunit-bridge ###
+=======
+###< symfony/phpunit-bridge ###
+>>>>>>> 1a970151076977d4767b821c52648ef9d860037b
