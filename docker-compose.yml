@@ -19,6 +19,7 @@ services:
       dockerfile: ./docker/php/Dockerfile
     volumes:
       - ./backend:/home/wwwroot
+    user: ${CURRENT_UID}
     depends_on:
       - db
   
@@ -32,6 +33,7 @@ services:
         MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    user: ${CURRENT_UID}
     ports:
       - 3306:3306
   
@@ -42,6 +44,7 @@ services:
       dockerfile: ./docker/node/Dockerfile
     volumes:
         - ./frontend:/home/wwwroot
+    user: ${CURRENT_UID}
     ports:
         - 3001:3000
     tty: true
