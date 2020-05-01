@@ -24,8 +24,8 @@ class gameCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
-            ->addArgument('name', InputArgument::OPTIONAL, 'Name');
+            ->setDescription('A command for find game\'s informations you want')
+            ->addArgument('name', InputArgument::OPTIONAL, 'game\'s name you want');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -48,7 +48,7 @@ class gameCommand extends Command
             'headers' => [
                 'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
             ],
-            'body' => 'fields name; limit 10 ;'
+            'body' => 'fields name; limit 10 ; search "' . $name . '";'
          ]);
         
         $response = $request->getContent();
