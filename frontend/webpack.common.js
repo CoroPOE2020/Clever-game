@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
-        main: './src/app.js'
+        index: path.resolve(__dirname, "src/index.js")
     },
     target: 'node',
     externals: [nodeExternals()],
