@@ -4,6 +4,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
     build-essential locales acl mailutils wget zip unzip \
     gnupg gnupg1 gnupg2
+    
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 COPY /docker/php/php.ini /etc/php/7.2.3/php.ini
 COPY /docker/php/php-fpm-pool.conf /etc/php/7.2.3/pool.d/www.conf
@@ -24,7 +26,6 @@ WORKDIR /home/wwwroot/
 COPY /backend/composer.json ./
 
 COPY . .
-
 
 EXPOSE 9000
 CMD ["php-fpm"]

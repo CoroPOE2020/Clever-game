@@ -33,7 +33,7 @@ services:
         MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    user: ${CURRENT_UID}
+    # user: ${CURRENT_UID}
     ports:
       - 3306:3306
   
