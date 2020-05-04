@@ -14,6 +14,7 @@ class gameCommand extends Command
     protected static $defaultName = 'game';
 
     protected $httpClient;
+    protected $games;
 
     public function __construct(string $name = null, HttpClientInterface $httpClient)
     {
@@ -34,9 +35,9 @@ class gameCommand extends Command
 
         $name = $input->getArgument('name');
 
-        $response = $this->getIgdbContent($name);
+        $this->getIgdbContent($name);
 
-        $io->success($response);
+        $io->success($this->games);
 
         return 0;
     }
@@ -48,11 +49,11 @@ class gameCommand extends Command
             'headers' => [
                 'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
             ],
-            'body' => 'fields name; limit 10 ; search "' . $name . '";'
-         ]);
-        
-        $response = $request->getContent();
+            'body' => 'fields name; limit 200; search "' . $name . '"; where version_parent = null & category = 0;'
+        ]);
 
-        return $response;
+        $response =  $request->getContent();
+
+        return $response; 
     }
 }
