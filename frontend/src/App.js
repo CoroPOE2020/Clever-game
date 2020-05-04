@@ -5,7 +5,7 @@ const App = props => {
 
     return (
         <Fragment>
-            <p>Coucou!</p>
+            <p>Coucou2!</p>
         </Fragment>
     );
 };

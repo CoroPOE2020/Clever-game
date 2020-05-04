@@ -1,13 +1,14 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: {
-        index: path.resolve(__dirname, "src/index.js")
-    },
-    target: 'node',
-    externals: [nodeExternals()],
+    entry: [
+        'webpack-dev-server/client?http://0.0.0.0:3000/',
+        path.resolve(__dirname, "src/index.js")
+    ],
+    // {
+    //     index: path.resolve(__dirname, "src/index.js")
+    // },
     module: {
         rules: [
             {
@@ -20,7 +21,8 @@ module.exports = {
                             "@babel/preset-react"
                         ]
                     }
-                }
+                },
+                exclude: /node_modules/
             }
         ]
     }

@@ -2,9 +2,9 @@
   "name": "clever_game",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server  --config webpack.dev.js --host 0.0.0.0",
+    "start": "webpack-dev-server  --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "author": "POE",

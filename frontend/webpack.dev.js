@@ -8,9 +8,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = merge(commonWebpackFile, {
     mode: "development",
     devServer: {
-        //contentBase: path.resolve(__dirname, 'src'),
-        //watchContentBase: true,
-        open: true,
+        contentBase: path.resolve(__dirname, 'src'),
+        watchContentBase: true,
+        host: '0.0.0.0',
         port: 3000
     },
     module: {
