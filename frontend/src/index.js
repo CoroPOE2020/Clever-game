@@ -4,9 +4,9 @@ import { Provider, connect } from "react-redux";
 
 // import store from "./store/store";
 
-import App from "./App";
+import App from "./components/App";
 
+// import styles
 import './scss/main.scss';
-console.log('toto')
 
-ReactDOM.render(<App />, document.getElementById("root"))
+ReactDOM.render(<App />, document.getElementById("root"));
