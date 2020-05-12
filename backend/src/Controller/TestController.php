@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
-use App\Command\gameCommand;
+
+use App\DTO\GameDto;
+use App\Entity\Game;
+use App\Factory\IgdbFactory;
 use App\Repository\GameRepository;
-use Symfony\Component\HttpFoundation\Response;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -17,10 +20,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TestController extends AbstractController
 {
     protected $games;
+    protected $managerRegistry;
 
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(HttpClientInterface $httpClient, ManagerRegistry $managerRegistry)
     {
         $this->httpClient = $httpClient;
+        $this->managerRegistry = $managerRegistry;
     }
     /**
      * @Route("/test/{name}", name="test")
@@ -32,9 +37,7 @@ class TestController extends AbstractController
         if ($repo == null) {
             $this->setCommand($name, $kernel);
         }
-        // echo('<pre>');
-        //     var_dump($this->games);
-        // echo('</pre>');
+
         return $this->render('test/index.html.twig', [
             'controller_name' => 'TestController',
             'games' => $this->games
@@ -53,27 +56,62 @@ class TestController extends AbstractController
 
         ]);
 
-
         $output = new BufferedOutput(
             OutputInterface::VERBOSITY_QUIET
 
         );
         $application->run($input, $output);
 
-        $this->games = $this->read($output->fetch());
-
-        var_dump(($this->games));
-        die();
+        $this->games = $this->importer($output->fetch());
     }
 
-    protected function read($response)
+    protected function importer($data)
     {
-        $json = substr($response,6);
+        $json = substr($data, 6);
         $games = json_decode($json);
 
-        // foreach ($games as $game) {
-        //     $gameNames[] = $game['name'];
-        // }
-        return $games;
+        if ($games == []) {
+            echo "c\'est mort";
+            return null;
+        }
+
+        foreach ($games as $game) {
+
+            $DTO = $this->read($game);
+            $newGame = $this->process($DTO);
+            $this->write($newGame);
+        }
+    }
+
+    protected function read($game)
+    {
+        $DTO = new GameDto($game->id, $game->name);
+
+        return $DTO;
+    }
+
+    protected function process($dto)
+    {
+        $game =  IgdbFactory::CreateGame($dto);
+
+        return $game;
+    }
+
+    protected function write($game)
+    {
+        $om = $this->getObjectManager();
+
+        if ($om === null) {
+            return false;
+        }
+
+        $om->persist($game);
+        $om->flush();
+        return true;
+    }
+
+    protected function getObjectManager()
+    {
+        return $this->managerRegistry->getManagerForClass(Game::class);
     }
 }
