@@ -54,11 +54,7 @@ const mapDispatchToProps = dispatch => {
         addAge: payload => dispatch({
             type: ADD_AGE,
             payload
-        }),
-        addInfos: payload => dispatch({
-            type: ADD_INFOS,
-            payload
-        }) 
+        })
     }
 };
 
