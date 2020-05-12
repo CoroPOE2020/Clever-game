@@ -31,11 +31,12 @@ class gameCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        
         $io = new SymfonyStyle($input, $output);
 
         $name = $input->getArgument('name');
 
-        $this->getIgdbContent($name);
+        $this->games = $this->getIgdbContent($name);
 
         $io->success($this->games);
 
@@ -49,11 +50,11 @@ class gameCommand extends Command
             'headers' => [
                 'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
             ],
-            'body' => 'fields name; limit 200; search "' . $name . '"; where version_parent = null & category = 0;'
+            'body' => 'fields name; limit 10; search "' . $name . '"; where version_parent = null & category = 0;'
         ]);
 
         $response =  $request->getContent();
 
-        return $response; 
+        return $response;
     }
 }
