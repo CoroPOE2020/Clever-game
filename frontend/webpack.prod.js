@@ -7,7 +7,8 @@ const BabelMinifyWebpackPlugin = require("babel-minify-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require('autoprefixer');
+const AutoPrefixerPlugin = require('autoprefixer');
+const CopyPlugin = require('copy-webpack-plugin');
 
 
 module.exports = merge(commonWebpackFile, {
@@ -26,7 +27,7 @@ module.exports = merge(commonWebpackFile, {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: () => [autoprefixer()]
+                            plugins: () => [AutoPrefixerPlugin()]
                         }
                     },
                     "sass-loader"
@@ -45,8 +46,11 @@ module.exports = merge(commonWebpackFile, {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].bundle.css"
+            filename: "style.bundle.css"
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new CopyPlugin([
+            { from: 'src/assets', to: 'assets' }
+        ])
     ]
 });
