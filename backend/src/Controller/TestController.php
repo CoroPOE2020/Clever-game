@@ -21,20 +21,25 @@ class TestController extends AbstractController
 {
     protected $games;
     protected $managerRegistry;
+    protected $gameRepository;
 
-    public function __construct(HttpClientInterface $httpClient, ManagerRegistry $managerRegistry)
+    public function __construct(HttpClientInterface $httpClient, ManagerRegistry $managerRegistry, GameRepository $gameRepository)
     {
         $this->httpClient = $httpClient;
         $this->managerRegistry = $managerRegistry;
+        $this->gameRepository = $gameRepository;
     }
     /**
      * @Route("/test/{name}", name="test")
      */
-    public function index($name, GameRepository $gameRepository, KernelInterface $kernel)
+    public function index($name, KernelInterface $kernel)
     {
-
-        $repo = $gameRepository->find($name);
-        if ($repo == null) {
+        //////////////////////////////////////////////////////////////////// completer le query builder pour la recherche par nom
+        $repo = $this->gameRepository->findOneBy(['name' => $name]);
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        print_r($repo);
+        die();
+        if ($repo === null) {
             $this->setCommand($name, $kernel);
         }
 
@@ -85,6 +90,16 @@ class TestController extends AbstractController
 
     protected function read($game)
     {
+        $result = $this->gameRepository->findOneBy([
+            'identifier' => $game->id,
+        ]);
+
+        if ($result !== null) {
+            print_r("deja la");
+            return null;
+        }
+
+        print_r($game);
         $DTO = new GameDto($game->id, $game->name);
 
         return $DTO;
@@ -92,6 +107,10 @@ class TestController extends AbstractController
 
     protected function process($dto)
     {
+        if ($dto === null) {
+            return null;
+        }
+
         $game =  IgdbFactory::CreateGame($dto);
 
         return $game;
@@ -101,7 +120,7 @@ class TestController extends AbstractController
     {
         $om = $this->getObjectManager();
 
-        if ($om === null) {
+        if ($om === null || $game === null) {
             return false;
         }
 
