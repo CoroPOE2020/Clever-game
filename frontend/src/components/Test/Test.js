@@ -12,7 +12,7 @@ class Test extends Component {
         };
 
         store.subscribe(() => {
-            console.log(store.getState().test.name);
+            console.log(store.getState().test.age);
             this.setState({
                 name: store.getState().test.name,
                 age: store.getState().test.age
@@ -20,8 +20,6 @@ class Test extends Component {
         });
 
         this.testClick = this.testClick.bind(this);
-        this.sayHello = this.sayHello.bind(this);
-
     }
 
     componentDidMount() {
@@ -34,10 +32,6 @@ class Test extends Component {
         });
     }
 
-    sayHello() {
-        alert('Hello!');
-      }
-
     testClick() {
         this.props.addName({
             name: 'Clément Gentil'
@@ -49,18 +43,13 @@ class Test extends Component {
     }
 
     render() {
-        // return (
-        //     <Fragment>
-        //         <p>{this.varTest.name}</p>
-        //         <p>{this.varTest.age}</p>
-        //         <button onClick={this.testClick}>Modifier</button>
-        //     </Fragment>
-        // )
         return (
-            <button onClick={this.testClick}>
-              Click me!
-            </button>
-          );
+            <Fragment>
+                <p>{this.varTest.name}</p>
+                <p>{this.varTest.age}</p>
+                <button onClick={this.testClick}>Modifier</button>
+            </Fragment>
+        )
     }
 }
 
