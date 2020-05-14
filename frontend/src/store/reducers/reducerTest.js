@@ -10,13 +10,13 @@ export const reducerTest = (state = varTestInitialState, actions) => {
         case setters.ADD_NAME:
             return {
                 ...state,
-                name: actions.payload
+                name: actions.payload.name
             };
 
         case setters.ADD_AGE:
             return {
                 ...state,
-                age: actions.payload
+                age: actions.payload.age
             };
 
         default: 

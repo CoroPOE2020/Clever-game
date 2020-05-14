@@ -30,10 +30,22 @@ class Test extends Component {
         });
     }
 
+
+    testClick() {
+        this.props.addName({
+            name: 'Clément Vilain'
+        });
+
+        this.props.addAge({
+            age: 22
+        });
+    }
+
     render() {
         <Fragment>
             <p>{this.varTest.name}</p>
             <p>{this.varTest.age}</p>
+            <button onClick={testClick}>Modifier</button>
         </Fragment>  
     }
 }
@@ -48,11 +60,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         addName: payload => dispatch({
-            type: ADD_NAME,
+            type: 'ADD_NAME',
             payload
         }),
         addAge: payload => dispatch({
-            type: ADD_AGE,
+            type: 'ADD_AGE',
             payload
         })
     }
