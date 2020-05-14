@@ -5,19 +5,23 @@ import store from '../../store/store';
 class Test extends Component {
     constructor(props) {
         super(props);
-        
+
         this.varTest = {
             name: '',
             age: null
         };
 
         store.subscribe(() => {
-            console.log(store.getState().varTest);
+            console.log(store.getState().test.name);
             this.setState({
-                name: store.getState().varTest.name,
-                age: store.getState().varTest.age
+                name: store.getState().test.name,
+                age: store.getState().test.age
             })
         });
+
+        this.testClick = this.testClick.bind(this);
+        this.sayHello = this.sayHello.bind(this);
+
     }
 
     componentDidMount() {
@@ -30,10 +34,13 @@ class Test extends Component {
         });
     }
 
+    sayHello() {
+        alert('Hello!');
+      }
 
     testClick() {
         this.props.addName({
-            name: 'Clément Vilain'
+            name: 'Clément Gentil'
         });
 
         this.props.addAge({
@@ -42,18 +49,25 @@ class Test extends Component {
     }
 
     render() {
-        <Fragment>
-            <p>{this.varTest.name}</p>
-            <p>{this.varTest.age}</p>
-            <button onClick={testClick}>Modifier</button>
-        </Fragment>  
+        // return (
+        //     <Fragment>
+        //         <p>{this.varTest.name}</p>
+        //         <p>{this.varTest.age}</p>
+        //         <button onClick={this.testClick}>Modifier</button>
+        //     </Fragment>
+        // )
+        return (
+            <button onClick={this.testClick}>
+              Click me!
+            </button>
+          );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        name: varTest.name,
-        age: varTest.age
+        name: state.name,
+        age: state.age
     }
 };
 
