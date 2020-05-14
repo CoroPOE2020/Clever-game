@@ -34,12 +34,10 @@ class TestController extends AbstractController
      */
     public function index($name, KernelInterface $kernel)
     {
-        //////////////////////////////////////////////////////////////////// completer le query builder pour la recherche par nom
-        $repo = $this->gameRepository->findOneBy(['name' => $name]);
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        print_r($repo);
-        die();
-        if ($repo === null) {
+
+        $repo = $this->gameRepository->findGames($name);
+
+        if (empty($repo)) {
             $this->setCommand($name, $kernel);
         }
 
@@ -99,7 +97,6 @@ class TestController extends AbstractController
             return null;
         }
 
-        print_r($game);
         $DTO = new GameDto($game->id, $game->name);
 
         return $DTO;
