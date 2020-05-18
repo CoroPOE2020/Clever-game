@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store/store';
-import { addAge, addName, getPokemon } from '../../store/actions/actionTest';
+import { addAge, addName, getPokemon } from '../../store/reducers/reducerTest';
 
 class Test extends Component {
     constructor(props) {
@@ -26,25 +26,25 @@ class Test extends Component {
     }
 
     componentDidMount() {
-        this.props.addNameCall({
+        this.props.addName({
             name: 'Manuscrit'
         });
 
-        this.props.addAgeCall({
+        this.props.addAge({
             age: 12
         });
     }
 
     testClick() {
-        this.props.addNameCall({
+        this.props.addName({
             name: 'Clément Gentil'
         });
 
-        this.props.addAgeCall({
+        this.props.addAge({
             age: 22
         });
 
-        this.props.getPokemonCall();
+        this.props.getPokemon();
     }
 
     render() {
@@ -67,12 +67,14 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addNameCall: payload => dispatch({type: 'ADD_NAME', payload}),
-        addAgeCall: payload => dispatch(addAge(payload)),
-        getPokemonCall: () => dispatch(getPokemon())
-    }
-};
+const mapDispatchToProps = { addName, addAge, getPokemon };
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         addNameCall: payload => dispatch(addName(payload)),
+//         addAgeCall: payload => dispatch(addAge(payload)),
+//         getPokemonCall: () => dispatch(getPokemon())
+//     }
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
