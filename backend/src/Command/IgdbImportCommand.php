@@ -9,24 +9,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class gameCommand extends Command
+abstract class IgdbImportCommand extends Command
 {
-    protected static $defaultName = 'game';
-
+    protected static $defaultName;
     protected $httpClient;
     protected $games;
+    protected $description;
+    protected $argument;
 
-    public function __construct(string $name = null, HttpClientInterface $httpClient)
+    public function __construct($name = null, HttpClientInterface $httpClient, $description, $argument)
     {
         parent::__construct($name);
         $this->httpClient = $httpClient;
+        $this->description = $description;
+        $this->argument = $argument;
     }
 
     protected function configure()
     {
         $this
-            ->setDescription('A command for find game\'s informations you want')
-            ->addArgument('name', InputArgument::OPTIONAL, 'game\'s name you want');
+            ->setDescription($this->description)
+            ->addArgument('name', InputArgument::OPTIONAL, $this->argument);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -50,7 +53,7 @@ class gameCommand extends Command
             'headers' => [
                 'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
             ],
-            'body' => 'fields name; limit 50; search "' . $name . '"; where version_parent = null & category = 0; '
+            'body' => 'fields name; limit 50; search "' . $this->argument . '"; where version_parent = null & category = 0; '
         ]);
 
         $response =  $request->getContent();
