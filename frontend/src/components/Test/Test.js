@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store/store';
+import { addAge, addName, getPokemon } from '../../store/actions/actionTest';
 
 class Test extends Component {
     constructor(props) {
@@ -8,14 +9,16 @@ class Test extends Component {
 
         this.varTest = {
             name: '',
-            age: null
+            age: null,
+            pokemon: null
         };
 
         store.subscribe(() => {
-            console.log(store.getState().test.age);
+            console.log(store.getState().test);
             this.setState({
                 name: store.getState().test.name,
-                age: store.getState().test.age
+                age: store.getState().test.age,
+                pokemon: store.getState().test.pokemon
             })
         });
 
@@ -23,30 +26,33 @@ class Test extends Component {
     }
 
     componentDidMount() {
-        this.props.addName({
+        this.props.addNameCall({
             name: 'Manuscrit'
         });
 
-        this.props.addAge({
+        this.props.addAgeCall({
             age: 12
         });
     }
 
     testClick() {
-        this.props.addName({
+        this.props.addNameCall({
             name: 'Clément Gentil'
         });
 
-        this.props.addAge({
+        this.props.addAgeCall({
             age: 22
         });
+
+        this.props.getPokemonCall();
     }
 
     render() {
         return (
             <Fragment>
-                <p>{this.varTest.name}</p>
-                <p>{this.varTest.age}</p>
+                <p>{store.getState().test.name}</p>
+                <p>{store.getState().test.age}</p>
+                <p>{store.getState().test.pokemon}</p>
                 <button onClick={this.testClick}>Modifier</button>
             </Fragment>
         )
@@ -56,20 +62,16 @@ class Test extends Component {
 const mapStateToProps = state => {
     return {
         name: state.name,
-        age: state.age
+        age: state.age,
+        pokemon: state.pokemon
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        addName: payload => dispatch({
-            type: 'ADD_NAME',
-            payload
-        }),
-        addAge: payload => dispatch({
-            type: 'ADD_AGE',
-            payload
-        })
+        addNameCall: payload => dispatch({type: 'ADD_NAME', payload}),
+        addAgeCall: payload => dispatch(addAge(payload)),
+        getPokemonCall: () => dispatch(getPokemon())
     }
 };
 

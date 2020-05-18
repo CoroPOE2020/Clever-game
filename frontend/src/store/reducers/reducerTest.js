@@ -1,23 +1,30 @@
-import * as setters from '../actions/actionTest';
+import * as actionsType from '../actions/actionTest';
 
 const varTestInitialState = {
     name: '',
-    age: null
+    age: null,
+    pokemon: null
 };
 
-export const reducerTest = (state = varTestInitialState, actions) => {
-    switch (actions.type) {
-        case setters.ADD_NAME:
+export const reducerTest = (state = varTestInitialState, action) => {
+    switch (action.type) {
+        case actionsType.ADD_NAME:
             return {
                 ...state,
-                name: actions.payload.name
+                name: action.payload.name
             };
 
-        case setters.ADD_AGE:
+        case actionsType.ADD_AGE:
             return {
                 ...state,
-                age: actions.payload.age
+                age: action.payload.age
             };
+
+        case actionsType.POKEMON_DATA:
+            return {
+                ...state,
+                pokemon: action.payload.name
+            }
 
         default: 
             return state;

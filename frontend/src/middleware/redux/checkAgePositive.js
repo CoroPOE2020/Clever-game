@@ -5,8 +5,7 @@ export function checkAgePositive({ dispatch }) {
         return function(action) {
             if (action.type === actions.ADD_AGE) {
                if (action.payload.age <= 0) {
-const store = createStore(reducer);
-
+                   console.log('Warning, age got negative value!');
                    return dispatch({ type: "NEGATIVE_AGE"});
                }
             }
