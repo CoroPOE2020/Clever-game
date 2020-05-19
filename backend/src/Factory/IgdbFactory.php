@@ -10,14 +10,14 @@ class IgdbFactory
     /**
      * @param GameDto $gameDto
      *
-     * @return Game
+     * @return Game $gameEntity
      */
     public static function CreateGame(GameDto $gameDto)
     {
-        $game = new Game;
-        $game->setIdentifier($gameDto->getIdentifier());
-        $game->setName($gameDto->getName());
+        $gameEntity = new Game;
+        $gameEntity->setIdentifier($gameDto->getIdentifier());
+        $gameEntity->setName($gameDto->getName());
 
-        return $game;
+        return $gameEntity;
     }
 }

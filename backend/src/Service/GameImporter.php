@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\DTO\GameDto;
 use App\Entity\Game;
+use App\Factory\IgdbFactory;
 use App\Repository\GameRepository;
 use App\Service\ImporterInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,17 +36,28 @@ class GameImporter implements ImporterInterface
         return $dto;
     }
 
-    public function process($data)
+    public function process($data): ?Game
     {
-        if($data === null)
-        {
+        if ($data === null) {
             return null;
         }
+
+        $gameEntity = IgdbFactory::CreateGame($data);
+
+        return $gameEntity;
     }
 
     public function write($data)
     {
-        print_r('holla write');
+        $om = $this->getObjectManager();
+
+        if ($om === null || $data === null) {
+            return false;
+        }
+
+        $om->persist($data);
+        $om->flush();
+        return true;
     }
 
     protected function getObjectManager()

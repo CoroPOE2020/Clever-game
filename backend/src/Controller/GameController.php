@@ -108,7 +108,7 @@ class GameController extends AbstractController
             return null;
         }
 
-        $game =  IgdbFactory::CreateGame($dto);
+        $game = IgdbFactory::CreateGame($dto);
 
         return $game;
     }

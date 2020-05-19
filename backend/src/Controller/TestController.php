@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Service\ImportCommand;
 use App\Service\GameImporter;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TestController extends AbstractController
@@ -20,7 +21,8 @@ class TestController extends AbstractController
     protected $commandOutput;
     protected $importCommand;
     protected $gameImporter;
-    protected $isExistInIgdb = false;
+    protected $igdbExist = false;
+    protected $dbExist =  true;
 
 
     public function __construct(
@@ -42,32 +44,34 @@ class TestController extends AbstractController
      */
     public function game($name = null)
     {
-        // ajouter une variable isExistDb pour verifier l'existence des données sur la db
         // regler la response json
-        // terminer le process et le write
-
 
         $repo = $this->gameRepository->findGames($name);
-        
-        var_dump($this->isExistInIgdb);
 
-        if (empty($repo)) {      
+        if (empty($repo)) {
+            $this->dbExist = false;
             $this->execute($name);
         }
 
-        var_dump($this->isExistInIgdb);
-
-        if ($this->isExistInIgdb) {
+        if ($this->igdbExist) {
             $repo = $this->gameRepository->findGames($name);
+            if (!empty($repo)) {
+                $this->dbExist  = true;
+            }
         }
 
-        print_r($repo);
-
-        return new JsonResponse(
+        return $this->json(
             [
                 'response' => $repo
             ]
         );
+
+        // dump($response);
+
+        // return $this->render('Game/index.html.twig',[
+        //     'controller_name' => 'TestController',
+        //     'games' => $repo
+        // ]);
     }
 
     protected function execute($name)
@@ -79,9 +83,8 @@ class TestController extends AbstractController
 
         if ($this->games == []) {
             return null;
-        }
-        else {
-            $this->isExistInIgdb = true;
+        } else {
+            $this->igdbExist = true;
         }
 
         foreach ($this->games as $game) {
