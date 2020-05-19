@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../../store/store';
-import { addAge, addName, getPokemon } from '../../store/reducers/reducerTest';
+import { addAge, addName, fetchPokemonData } from '../../store/reducers/reducerTest';
 
 class Test extends Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class Test extends Component {
             age: 22
         });
 
-        this.props.getPokemon();
+        this.props.fetchPokemonData('ditto');
     }
 
     render() {
@@ -67,7 +67,7 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = { addName, addAge, getPokemon };
+const mapDispatchToProps = { addName, addAge, fetchPokemonData };
 
 // const mapDispatchToProps = dispatch => {
 //     return {
