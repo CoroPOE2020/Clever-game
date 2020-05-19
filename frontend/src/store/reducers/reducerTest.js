@@ -58,8 +58,8 @@ export const fetchPokemonData = (pokemonName) => {
                 console.log(err);
                 dispatch(fetchPokemonDataFailed({ err: err, message: 'Api calls failed' }));
             });
+        };
     }
-};
 
 // export function getPokemon() {
 //     // dispatch(fetchPokemonData); // => { loading: true }

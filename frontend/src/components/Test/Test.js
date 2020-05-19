@@ -7,25 +7,48 @@ class Test extends Component {
     constructor(props) {
         super(props);
 
-        this.varTest = {
-            name: '',
-            age: null,
-            pokemon: null
-        };
+        this.state = this.getCurrentStateFromStore();
+        // this.varTest = {
+        //     name: '',
+        //     age: null,
+        //     pokemon: null,
+        //     error: null
+        // };
 
-        store.subscribe(() => {
-            console.log(store.getState().test);
-            this.setState({
-                name: store.getState().test.name,
-                age: store.getState().test.age,
-                pokemon: store.getState().test.pokemon
-            })
-        });
+        // // se déclenche quand une action se lance
+        // store.subscribe(() => {
+        //     console.log(store.getState().test);
+        //     this.setState({
+        //         name: store.getState().test.name, // getState() = méthode de redux / test = nom du slice
+        //         age: store.getState().test.age,
+        //         pokemon: store.getState().test.pokemon
+        //     })
+        // });
 
         this.testClick = this.testClick.bind(this);
+        this.updateStateFromStore = this.updateStateFromStore.bind(this);
+    }
+
+    getCurrentStateFromStore() {
+        return {
+            name: store.getState().test.name,
+            age: store.getState().test.age,
+            pokemon: store.getState().test.pokemon,
+            error: store.getState().test.error
+        }
+    }
+
+    updateStateFromStore() {
+        const currentState = this.getCurrentStateFromStore();
+
+        if(this.state !== currentState) {
+            this.setState(currentState);
+        }
     }
 
     componentDidMount() {
+        store.subscribe(this.updateStateFromStore)
+
         this.props.addName({
             name: 'Manuscrit'
         });
@@ -50,7 +73,7 @@ class Test extends Component {
     render() {
         return (
             <Fragment>
-                <p>{store.getState().test.name}</p>
+                <p>{this.state.name}</p>
                 <p>{store.getState().test.age}</p>
                 <p>{store.getState().test.pokemon}</p>
                 <button onClick={this.testClick}>Modifier</button>
@@ -59,13 +82,13 @@ class Test extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        name: state.name,
-        age: state.age,
-        pokemon: state.pokemon
-    }
-};
+// const mapStateToProps = state => {
+//     return {
+//         name: state.name,
+//         age: state.age,
+//         pokemon: state.pokemon
+//     }
+// };
 
 const mapDispatchToProps = { addName, addAge, fetchPokemonData };
 
@@ -77,4 +100,4 @@ const mapDispatchToProps = { addName, addAge, fetchPokemonData };
 //     }
 // };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Test);
+export default connect(null, mapDispatchToProps)(Test);
