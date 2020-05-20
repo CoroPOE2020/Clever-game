@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 class ImportCommand 
 {
-    protected $kernel= 'coucou';
+    protected $kernel;
 
     function __construct(KernelInterface $kernel)
     {

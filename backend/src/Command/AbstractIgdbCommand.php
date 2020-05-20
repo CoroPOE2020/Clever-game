@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-abstract class IgdbImportCommand extends Command
+abstract class AbstractIgdbCommand extends Command
 {
     protected static $defaultName;
     protected $httpClient;

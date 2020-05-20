@@ -2,10 +2,10 @@
 
 namespace App\Command;
 
-use App\Command\IgdbImportCommand;
+use App\Command\AbstractIgdbCommand;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class TestCommand extends IgdbImportCommand
+class GameCommand extends AbstractIgdbCommand
 {
     protected static $defaultName = 'game';
     protected $description = 'Command for add games';
@@ -16,6 +16,11 @@ class TestCommand extends IgdbImportCommand
      */
     public function __construct(HttpClientInterface $httpClient)
     {
-        parent::__construct(static::$defaultName, $httpClient, $this->description, $this->argument);
+        parent::__construct(
+            static::$defaultName, 
+            $httpClient, 
+            $this->description, 
+            $this->argument
+        );
     }
 }
