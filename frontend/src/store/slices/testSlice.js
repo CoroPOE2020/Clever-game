@@ -18,6 +18,9 @@ export const testSlice = createSlice({
         addAge: (state, action) => {
             state.age = action.payload.age;
         },
+        addAgeNotValid: (state, action) => {
+            state.error = action.payload.message;
+        },
         fetchPokemonDataSuccess: (state, action) => {
             state.pokemon = action.payload.name;
             state.error = null;
@@ -46,5 +49,5 @@ export const fetchPokemonData = (pokemonName) => {
     };
 }
 
-export const { addName, addAge, fetchPokemonDataSuccess, fetchPokemonDataFailed } = testSlice.actions;
+export const { addName, addAge, addAgeNotValid, fetchPokemonDataSuccess, fetchPokemonDataFailed } = testSlice.actions;
 export default testSlice.reducer;

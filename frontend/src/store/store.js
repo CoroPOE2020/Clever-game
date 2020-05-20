@@ -1,16 +1,15 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { createLogger } from 'redux-logger';
 
 import testSlice from './slices/testSlice';
 import { checkAgePositive } from '../middleware/redux/checkAgePositive';
 
-import { createLogger } from 'redux-logger';
 
-const logger = createLogger({});
 
 const middleware = [
     ...getDefaultMiddleware(),
-    logger
-    //checkAgePositive
+    createLogger(),
+    checkAgePositive
 ];
 
 const store = configureStore({

@@ -33,7 +33,7 @@ class Test extends Component {
         });
 
         this.props.addAge({
-            age: 12
+            age: -12
         });
     }
 
