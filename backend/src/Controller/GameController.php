@@ -10,15 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use App\Service\ImportCommand;
 use App\Service\GameImporter;
-use Symfony\Component\BrowserKit\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GameController extends AbstractController
 {
     protected $gameRepository;
     protected $managerRegistry;
     protected $games;
-    protected $commandOutput;
+    protected $responseJson;
     protected $importCommand;
     protected $gameImporter;
     protected $igdbExist = false;
@@ -28,13 +26,11 @@ class GameController extends AbstractController
     public function __construct(
         GameRepository $gameRepository,
         ManagerRegistry $managerRegistry,
-        HttpClientInterface $httpClient,
         ImportCommand $importCommand,
         GameImporter $gameImporter
     ) {
         $this->gameRepository = $gameRepository;
         $this->managerRegistry = $managerRegistry;
-        $this->httpClient = $httpClient;
         $this->importCommand = $importCommand;
         $this->gameImporter = $gameImporter;
     }
@@ -44,7 +40,6 @@ class GameController extends AbstractController
      */
     public function game($name = null)
     {
-        // regler la response json
 
         $repo = $this->gameRepository->findGames($name);
 
@@ -69,10 +64,14 @@ class GameController extends AbstractController
 
     protected function execute($name)
     {
-        $this->commandOutput = $this->importCommand->setCommand($name);
+        $this->responseJson = $this->importCommand->setCommand($name);
 
-        $json = substr($this->commandOutput, 6);
-        $this->games = json_decode($json);
+        $this->games = json_decode($this->responseJson);
+
+        echo '<pre>';
+        print_r($this->games);
+        echo '</pre>';
+        die();
 
         if ($this->games == []) {
             return null;

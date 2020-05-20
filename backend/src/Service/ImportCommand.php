@@ -2,39 +2,38 @@
 
 namespace App\Service;
 
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Validator\Constraints\Json;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ImportCommand 
+
+class ImportCommand
 {
-    protected $kernel;
-
-    function __construct(KernelInterface $kernel)
-    {
-        $this->kernel = $kernel;        
-    }
+    protected $httpclient;
     
-    public function setCommand($name)
-    {   
-        $application = new Application($this->kernel);
-        $application->setAutoExit(false);
-        $input = new ArrayInput(
-            [
-                'command' => 'game',
-                'name' => $name,
-                '-v' => true,
-            ]
-        );
-
-        $output = new BufferedOutput(
-            OutputInterface::VERBOSITY_QUIET
-        );
-        $application->run($input, $output);
-
-        return $output->fetch();
+    public function __construct(HttpClientInterface $httpclient) {
+        $this->httpclient = $httpclient;
     }
 
- }
+    public function setCommand($name)
+    {
+                
+        $request = $this->httpclient->request('GET', 'https://api-v3.igdb.com/games', [
+            'headers' => [
+                'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
+            ],
+
+            'body' => 'fields name; limit 50; search "' . $name . '"; where version_parent = null & category = 0;'
+        ]);
+
+        $data = $request->getContent();
+
+        return $data;
+
+    }
+}

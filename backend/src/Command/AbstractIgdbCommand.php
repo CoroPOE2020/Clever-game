@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Command;
+use App\Service\ImportCommand;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,13 +17,14 @@ abstract class AbstractIgdbCommand extends Command
     protected $games;
     protected $description;
     protected $argument;
+    protected $importCommand;
 
     public function __construct($name = null, HttpClientInterface $httpClient, $description, $argument)
     {
         parent::__construct($name);
         $this->httpClient = $httpClient;
         $this->description = $description;
-        $this->argument = $argument;
+        $this->argument = $argument;        
     }
 
     protected function configure()
@@ -34,30 +36,16 @@ abstract class AbstractIgdbCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $importCommand = new ImportCommand($this->httpClient);
         
         $io = new SymfonyStyle($input, $output);
-
-        $name = $input->getArgument('name');
-
-        $this->games = $this->getIgdbContent($name);
+        
+        $name = $input->getArgument('name');        
+        
+        $this->games = $importCommand->setCommand($name);
 
         $io->success($this->games);
 
         return 0;
-    }
-
-    protected function getIgdbContent($name)
-    {
-
-        $request = $this->httpClient->request('GET', 'https://api-v3.igdb.com/games', [
-            'headers' => [
-                'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
-            ],
-            'body' => 'fields name; limit 50; search "' . $name . '"; where version_parent = null & category = 0; '
-        ]);
-
-        $response =  $request->getContent();
-
-        return $response;
     }
 }

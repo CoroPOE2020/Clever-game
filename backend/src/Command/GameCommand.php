@@ -8,8 +8,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class GameCommand extends AbstractIgdbCommand
 {
     protected static $defaultName = 'game';
-    protected $description = 'Command for add games';
-    protected $argument = 'yoshi';
+    protected $description = 'Command for find games in IGDB database';
+    protected $argument = "Game\'s name";
 
     /**
      * @param HttpClientInterface    $httpClient
