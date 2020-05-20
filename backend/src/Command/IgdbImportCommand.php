@@ -53,7 +53,7 @@ abstract class IgdbImportCommand extends Command
             'headers' => [
                 'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
             ],
-            'body' => 'fields name; limit 50; search "' . $this->argument . '"; where version_parent = null & category = 0; '
+            'body' => 'fields name; limit 50; search "' . $name . '"; where version_parent = null & category = 0; '
         ]);
 
         $response =  $request->getContent();

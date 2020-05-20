@@ -2,132 +2,89 @@
 
 namespace App\Controller;
 
-
-use App\DTO\GameDto;
 use App\Entity\Game;
-use App\Factory\IgdbFactory;
 use App\Repository\GameRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use App\Service\ImportCommand;
+use App\Service\GameImporter;
+use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class GameController extends AbstractController
 {
-    protected $games;
-    protected $managerRegistry;
     protected $gameRepository;
+    protected $managerRegistry;
+    protected $games;
+    protected $commandOutput;
+    protected $importCommand;
+    protected $gameImporter;
+    protected $igdbExist = false;
+    protected $dbExist =  true;
 
-    public function __construct(HttpClientInterface $httpClient, ManagerRegistry $managerRegistry, GameRepository $gameRepository)
-    {
-        $this->httpClient = $httpClient;
-        $this->managerRegistry = $managerRegistry;
+
+    public function __construct(
+        GameRepository $gameRepository,
+        ManagerRegistry $managerRegistry,
+        HttpClientInterface $httpClient,
+        ImportCommand $importCommand,
+        GameImporter $gameImporter
+    ) {
         $this->gameRepository = $gameRepository;
+        $this->managerRegistry = $managerRegistry;
+        $this->httpClient = $httpClient;
+        $this->importCommand = $importCommand;
+        $this->gameImporter = $gameImporter;
     }
+
     /**
-     * @Route("/test/{name}", name="test")
+     * @Route("/game/{name}", name="game")
      */
-    public function index($name, KernelInterface $kernel)
+    public function game($name = null)
     {
+        // regler la response json
 
         $repo = $this->gameRepository->findGames($name);
 
         if (empty($repo)) {
-            $this->setCommand($name, $kernel);
+            $this->dbExist = false;
+            $this->execute($name);
         }
 
-        return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
-            'games' => $this->games
-        ]);
-    }
+        if ($this->igdbExist) {
+            $repo = $this->gameRepository->findGames($name);
+            if (!empty($repo)) {
+                $this->dbExist  = true;
+            }
+        }
 
-    public function setCommand($name, $kernel)
-    {
-        $application = new Application($kernel);
-        $application->setAutoExit(false);
-
-        $input = new ArrayInput([
-            'command' => 'game',
-            'name' => $name,
-            '-v' => true,
-
-        ]);
-
-        $output = new BufferedOutput(
-            OutputInterface::VERBOSITY_QUIET
-
+        return $this->json(
+            [
+                'response' => $repo
+            ]
         );
-        $application->run($input, $output);
-
-        $this->games = $this->importer($output->fetch());
     }
 
-    protected function importer($data)
+    protected function execute($name)
     {
-        $json = substr($data, 6);
-        $games = json_decode($json);
+        $this->commandOutput = $this->importCommand->setCommand($name);
 
-        if ($games == []) {
-            echo "c\'est mort";
+        $json = substr($this->commandOutput, 6);
+        $this->games = json_decode($json);
+
+        if ($this->games == []) {
             return null;
+        } else {
+            $this->igdbExist = true;
         }
 
-        foreach ($games as $game) {
+        foreach ($this->games as $game) {
 
-            $DTO = $this->read($game);
-            $newGame = $this->process($DTO);
-            $this->write($newGame);
+            $DTO = $this->gameImporter->read($game);
+            $newGame = $this->gameImporter->process($DTO);
+            $this->gameImporter->write($newGame);
         }
-    }
-
-    protected function read($game)
-    {
-        $result = $this->gameRepository->findOneBy([
-            'identifier' => $game->id,
-        ]);
-
-        if ($result !== null) {
-            print_r("deja la");
-            return null;
-        }
-
-        $DTO = new GameDto($game->id, $game->name);
-
-        return $DTO;
-    }
-
-    protected function process($dto)
-    {
-        if ($dto === null) {
-            return null;
-        }
-
-        $game = IgdbFactory::CreateGame($dto);
-
-        return $game;
-    }
-
-    protected function write($game)
-    {
-        $om = $this->getObjectManager();
-
-        if ($om === null || $game === null) {
-            return false;
-        }
-
-        $om->persist($game);
-        $om->flush();
-        return true;
-    }
-
-    protected function getObjectManager()
-    {
-        return $this->managerRegistry->getManagerForClass(Game::class);
     }
 }
