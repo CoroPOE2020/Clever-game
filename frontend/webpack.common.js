@@ -19,7 +19,13 @@ module.exports = {
                     }
                 },
                 exclude: /node_modules/
-            }
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: {
+                    loader: 'file-loader',
+                },
+            },
         ]
     }
 };

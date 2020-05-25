@@ -10,6 +10,7 @@ class Logo extends Component {
         return (
             <Fragment>
                 <p>Logo!</p>
+                <i class="fa fa-user" aria-hidden="true"></i>
             </Fragment>
         )
     }

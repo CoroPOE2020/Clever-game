@@ -1,3 +1,33 @@
-@import 
-    "header",
-    "body";
+@import
+    'abstracts/variables';
+    // 'abstracts/mixins';
+
+@import
+    '~reset-css/sass/reset',
+    '~font-awesome/scss/font-awesome';
+
+@import
+    // 'base/base',
+    'base/typo';
+
+// @import
+//     'components/logo-blue',
+//     'components/logo-white';
+ 
+// @import
+//     'layouts/header',
+//     'layouts/header-navbar',
+//     'layouts/intro',
+//     'layouts/realisations',
+//     'layouts/technos',
+//     'layouts/website-box',
+//     'layouts/contact',
+//     'layouts/footer';
+
+// @import
+//     'pages/legals',
+//     'pages/showcase',
+//     'pages/showcase-lab',
+//     'pages/color-game',
+//     'pages/contact-response',
+//     'pages/error';
