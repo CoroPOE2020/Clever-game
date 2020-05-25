@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
 
+import Test from './Test/Test';
+
+
 const App = props => {
     return (
         <Fragment>
-            <p>Coucou2!</p>
+            <Test />
         </Fragment>
     );
 };
