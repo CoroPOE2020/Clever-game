@@ -1,11 +1,18 @@
 import React, { Fragment } from "react";
+import  { isMobileOnly } from 'react-device-detect';
 
-import Menu from './Menu/Menu';
+import Menu from '../../UI/Menu/Menu';
+import Logo from '../../UI/Logo/Logo';
+import SideMenu from './SideMenu/SideMenu';
+
+let displayMenu = isMobileOnly ? null : <Menu />
 
 const Header = props => {
     return (
         <Fragment>
-            <Menu />
+            <Logo />
+            { displayMenu }
+            <SideMenu />
         </Fragment>
     );
 };

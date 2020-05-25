@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 
-import Logo from '../../../UI/Logo/Logo';
+
 class Menu extends Component {
     constructor(props) {
         super(props);
@@ -9,8 +9,10 @@ class Menu extends Component {
     render() {
         return (
             <Fragment>
-                <Logo />
                 <p>Menu! </p>
+                <ul>
+                    <li></li>
+                </ul>
             </Fragment>
         )
     }
