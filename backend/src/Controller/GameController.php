@@ -2,13 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Game;
 use App\Repository\GameRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use App\Service\ImportCommand;
+use App\Service\ImportIgdb;
 use App\Service\GameImporter;
 
 class GameController extends AbstractController
@@ -17,7 +15,7 @@ class GameController extends AbstractController
     protected $managerRegistry;
     protected $games;
     protected $responseJson;
-    protected $importCommand;
+    protected $importIgdb;
     protected $gameImporter;
     protected $igdbExist = false;
     protected $dbExist =  true;
@@ -26,26 +24,31 @@ class GameController extends AbstractController
     public function __construct(
         GameRepository $gameRepository,
         ManagerRegistry $managerRegistry,
-        ImportCommand $importCommand,
+        ImportIgdb $importIgdb,
         GameImporter $gameImporter
     ) {
         $this->gameRepository = $gameRepository;
         $this->managerRegistry = $managerRegistry;
-        $this->importCommand = $importCommand;
+        $this->importIgdb = $importIgdb;
         $this->gameImporter = $gameImporter;
     }
 
     /**
-     * @Route("/game/{name}", name="game")
+     * @Route("/game/{name}/{force}", name="game")
      */
-    public function game($name = null)
+
+    public function game($name = null, $force = null)
     {
-
-        $repo = $this->gameRepository->findGames($name);
-
-        if (empty($repo)) {
+        if ($force != null) {
             $this->dbExist = false;
             $this->execute($name);
+        } else {
+            $repo = $this->gameRepository->findGames($name);
+
+            if (empty($repo)) {
+                $this->dbExist = false;
+                $this->execute($name);
+            }
         }
 
         if ($this->igdbExist) {
@@ -64,14 +67,9 @@ class GameController extends AbstractController
 
     protected function execute($name)
     {
-        $this->responseJson = $this->importCommand->setCommand($name);
+        $this->responseJson = $this->importIgdb->setImport($name);
 
         $this->games = json_decode($this->responseJson);
-
-        echo '<pre>';
-        print_r($this->games);
-        echo '</pre>';
-        die();
 
         if ($this->games == []) {
             return null;

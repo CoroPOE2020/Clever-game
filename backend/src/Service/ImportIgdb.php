@@ -2,17 +2,9 @@
 
 namespace App\Service;
 
-use Symfony\Component\Console\Output\Output;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-
-class ImportCommand
+class ImportIgdb
 {
     protected $httpclient;
     
@@ -20,7 +12,7 @@ class ImportCommand
         $this->httpclient = $httpclient;
     }
 
-    public function setCommand($name)
+    public function setImport($name)
     {
                 
         $request = $this->httpclient->request('GET', 'https://api-v3.igdb.com/games', [

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Command;
-use App\Service\ImportCommand;
-
+use App\Service\ImportIgdb;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -36,13 +35,13 @@ abstract class AbstractIgdbCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $importCommand = new ImportCommand($this->httpClient);
+        $importCommand = new ImportIgdb($this->httpClient);
         
         $io = new SymfonyStyle($input, $output);
         
         $name = $input->getArgument('name');        
         
-        $this->games = $importCommand->setCommand($name);
+        $this->games = $importCommand->setImport($name);
 
         $io->success($this->games);
 
