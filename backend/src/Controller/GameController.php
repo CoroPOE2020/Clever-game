@@ -19,6 +19,9 @@ class GameController extends AbstractController
     protected $gameImporter;
     protected $igdbExist = false;
     protected $dbExist =  true;
+    protected $apiEndpoint = 'games';
+    protected $fields = 'name';
+    protected $options = 'where version_parent = null & category = 0';
 
 
     public function __construct(
@@ -67,7 +70,7 @@ class GameController extends AbstractController
 
     protected function execute($name)
     {
-        $this->responseJson = $this->importIgdb->setImport($name);
+        $this->responseJson = $this->importIgdb->setImport($name, $this->apiEndpoint, $this->fields, $this->options);
 
         $this->games = json_decode($this->responseJson);
 

@@ -17,13 +17,17 @@ abstract class AbstractIgdbCommand extends Command
     protected $description;
     protected $argument;
     protected $importCommand;
+    protected $fields;
+    protected $options;
 
-    public function __construct($name = null, HttpClientInterface $httpClient, $description, $argument)
+    public function __construct($name = null, HttpClientInterface $httpClient, $description, $argument, $fields, $options)
     {
         parent::__construct($name);
         $this->httpClient = $httpClient;
         $this->description = $description;
-        $this->argument = $argument;        
+        $this->argument = $argument;
+        $this->fields = $fields;
+        $this->options =$options;
     }
 
     protected function configure()
@@ -39,9 +43,9 @@ abstract class AbstractIgdbCommand extends Command
         
         $io = new SymfonyStyle($input, $output);
         
-        $name = $input->getArgument('name');        
+        $name = $input->getArgument('name');       
         
-        $this->games = $importCommand->setImport($name);
+        $this->games = $importCommand->setImport($name, static::$defaultName, $this->fields, $this->options);
 
         $io->success($this->games);
 

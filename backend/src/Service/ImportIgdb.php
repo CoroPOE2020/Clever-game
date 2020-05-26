@@ -7,25 +7,33 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class ImportIgdb
 {
     protected $httpclient;
-    
-    public function __construct(HttpClientInterface $httpclient) {
+    protected $url = 'https://api-v3.igdb.com';
+
+    public function __construct(HttpClientInterface $httpclient)
+    {
         $this->httpclient = $httpclient;
     }
 
-    public function setImport($name)
+
+    public function setImport($name, $apiEndpoint, $fields, $options)
     {
-                
-        $request = $this->httpclient->request('GET', 'https://api-v3.igdb.com/games', [
+        $path = $this->setPath($this->url, $apiEndpoint);
+
+        $request = $this->httpclient->request('GET', $path, [
             'headers' => [
-                'user-key' => '0cfafd24e45e89068e7324bd83d8c2e5'
+                'user-key' => $_ENV['APP_IGDB_TOKEN']
             ],
 
-            'body' => 'fields name; limit 50; search "' . $name . '"; where version_parent = null & category = 0;'
+            'body' => 'fields ' . $fields . '; limit 50; search "' . $name . '"; ' . $options . ';'
         ]);
 
         $data = $request->getContent();
 
         return $data;
-
+    }
+    
+    public function setPath($url, $path)
+    {
+        return join(DIRECTORY_SEPARATOR, [$url, $path]);
     }
 }

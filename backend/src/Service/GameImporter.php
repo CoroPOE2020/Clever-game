@@ -27,7 +27,9 @@ class GameImporter implements ImporterInterface
         ]);
 
         if ($result !== null) {
-            print_r("déjô lô");
+            // echo '<pre>';
+            // print_r("déjô lô");
+            // echo '</pre>';
             return null;
         }
 
