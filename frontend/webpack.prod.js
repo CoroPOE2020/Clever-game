@@ -30,7 +30,8 @@ module.exports = merge(commonWebpackFile, {
                             plugins: () => [AutoPrefixerPlugin()]
                         }
                     },
-                    "sass-loader"
+                    "sass-loader",
+                    "resolve-url-loader"
                 ]
             }
         ]

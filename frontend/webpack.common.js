@@ -27,8 +27,8 @@ module.exports = {
                 loader: 'file-loader',
                 options: {
                     name: '[name].[ext]', // Nom du fichier généré
-                    outputPath: 'assets/img/', // Destination du fichier généré dans le répertoire public
-                    publicPath: 'assets/img' // Chemin relatif depuis le fichier CSS vers le dossier des images
+                    outputPath: './assets/img/', // Destination du fichier généré dans le répertoire public
+                    publicPath: './assets/img/' // Chemin relatif depuis le fichier CSS vers le dossier des images
                   }
                 }
             },
@@ -39,8 +39,9 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: 'assets/fonts/', // Je veux copier les fichiers de fonts dans le répertoire public/fonts
-                        publicPath: 'assets/fonts' // J'informe à mon code CSS (dans css/style.css) que les polices de caractères seront dans le répertoire ../fonts
+                        limit: 4096,
+                        outputPath: './assets/fonts/', // Je veux copier les fichiers de fonts dans le répertoire public/fonts
+                        publicPath: './assets/fonts/' // J'informe à mon code CSS (dans css/style.css) que les polices de caractères seront dans le répertoire ../fonts
                       }
                 },
             },
@@ -51,8 +52,8 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: 'assets/icons/', // Je veux copier les fichiers de fonts dans le répertoire public/fonts
-                        publicPath: 'assets/icons' // J'informe à mon code CSS (dans css/style.css) que les polices de caractères seront dans le répertoire ../fonts
+                        outputPath: './assets/icons/', // Je veux copier les fichiers de fonts dans le répertoire public/fonts
+                        publicPath: './assets/icons/' // J'informe à mon code CSS (dans css/style.css) que les polices de caractères seront dans le répertoire ../fonts
                       }
                 },
             },

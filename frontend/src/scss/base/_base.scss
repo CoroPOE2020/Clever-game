@@ -2,19 +2,23 @@
 html {
     box-sizing: border-box;  
   }
-  
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-  }
-  
-  a {
-    text-decoration: none;
-    // color: $color-text;
-  }
-  
-  a:hover {
-    // color: $hover-color;
-  }
-  
+
+body {
+  background-color: $black-pearl;
+  color: $stark-white;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+  // color: $color-text;
+}
+
+a:hover {
+  // color: $hover-color;
+}

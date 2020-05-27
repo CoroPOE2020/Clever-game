@@ -8,10 +8,11 @@ class Logo extends Component {
     }
 
     render() {
-        const cssClasses = [
-            "logo", 
-            this.props.position ? this.props.position : "default"
-        ];
+        const cssClasses = ["logo"];
+
+        if (this.props.position) {
+            cssClasses.push(this.props.position);
+        }
 
         return (
             <Fragment>

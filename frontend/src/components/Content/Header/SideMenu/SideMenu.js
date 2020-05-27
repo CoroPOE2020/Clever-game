@@ -9,7 +9,13 @@ class SideMenu extends Component {
     render() {
         return (
             <Fragment>
-                <p>SideMenu</p>
+                <nav className="header__side-menu">
+                    <ul className="header__side-menu__list">
+                        <li className="header__side-menu__list__item"><i className="fa fa-user-circle" aria-hidden="true"></i></li>
+                        <li className="header__side-menu__list__item"><i className="fa fa-search" aria-hidden="true"></i></li>
+                    </ul>
+
+                </nav>
             </Fragment>
         )
     }
