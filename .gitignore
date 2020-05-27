@@ -1,6 +1,7 @@
 ###>Environment file ###
 /.env
 /docker/data/db
+/.vsls.json
 
 ###> Mac system file ###
 .DS_Store
