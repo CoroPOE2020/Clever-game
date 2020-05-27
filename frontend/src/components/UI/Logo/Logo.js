@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 
+import logoImg from '../../../assets/img/cleverGameLogo.png';
 
 class Logo extends Component {
     constructor(props) {
@@ -9,8 +10,7 @@ class Logo extends Component {
     render() {
         return (
             <Fragment>
-                <p>Logo!</p>
-                <i class="fa fa-user" aria-hidden="true"></i>
+                <img src={ logoImg } ></img>
             </Fragment>
         )
     }
