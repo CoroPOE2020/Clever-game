@@ -10,9 +10,11 @@ let displayMenu = isMobileOnly ? null : <Menu />
 const Header = props => {
     return (
         <Fragment>
-            <Logo />
-            { displayMenu }
-            <SideMenu />
+            <header className="header">
+                <Logo position="header__logo" />
+                { displayMenu }
+                <SideMenu />
+            </header>
         </Fragment>
     );
 };

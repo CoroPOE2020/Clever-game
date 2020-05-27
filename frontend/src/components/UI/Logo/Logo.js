@@ -8,9 +8,14 @@ class Logo extends Component {
     }
 
     render() {
+        const cssClasses = [
+            "logo", 
+            this.props.position ? this.props.position : "default"
+        ];
+
         return (
             <Fragment>
-                <img src={ logoImg } ></img>
+                <img src={ logoImg } className={cssClasses.join(' ')} />
             </Fragment>
         )
     }
