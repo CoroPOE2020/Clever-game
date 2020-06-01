@@ -1,3 +1,19 @@
-@import 
-    "header",
-    "body";
+@import
+    'abstracts/variables',
+    'abstracts/mixins';
+
+@import
+    '~reset-css/sass/reset',
+    '~font-awesome/scss/font-awesome';
+
+@import
+    'base/base',
+    'base/typo';
+
+@import
+    'components/logo-header'; 
+    
+@import
+    'layouts/header',
+    'layouts/sideMenu';
+

@@ -15,14 +15,16 @@ module.exports = merge(commonWebpackFile, {
         port: 3000,
         disableHostCheck: true
     },
+    devtool: "source-map",
     module: {
         rules: [
             {
                 test: /\.scss$/,
                 use: [
                     "style-loader",
-                    "css-loader",
-                    "sass-loader"
+                    "css-loader", 
+                    "sass-loader",
+                    "resolve-url-loader"
                 ]
             }
         ]

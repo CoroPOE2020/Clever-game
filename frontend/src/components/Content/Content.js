@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
 
+import Header from './Header/Header';
 
 const Content = props => {
     return (
         <Fragment>
-            <p>Header</p>
-            {/* Header / Main pages / Footer*/}
+            <Header />
+            {/* Main pages / Footer*/}
         </Fragment>
     );
 };

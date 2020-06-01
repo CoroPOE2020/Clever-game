@@ -1,0 +1,11 @@
+// //Function to convert px value into rem
+@function pxToRem($pxValue) {
+    @return $pxValue / 16px * 1rem;
+}
+
+
+
+.testClass {
+    background-color: red;
+    padding: pxToRem(300px);
+}

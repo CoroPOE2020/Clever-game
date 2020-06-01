@@ -1,0 +1,16 @@
+.header__side-menu {
+    display: flex;
+    align-items: center;
+    padding-right: pxToRem(10px);
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        width: pxToRem(80px);
+
+        &__item {
+            font-size: x-large;
+        }
+    }
+}
+

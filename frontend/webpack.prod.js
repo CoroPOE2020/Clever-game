@@ -15,7 +15,7 @@ module.exports = merge(commonWebpackFile, {
     mode: "production",
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "[name].bundle.js"
+        filename: "assets/js/[name].bundle.js"
     },
     module: {
         rules: [
@@ -30,7 +30,8 @@ module.exports = merge(commonWebpackFile, {
                             plugins: () => [AutoPrefixerPlugin()]
                         }
                     },
-                    "sass-loader"
+                    "sass-loader",
+                    "resolve-url-loader"
                 ]
             }
         ]
@@ -46,7 +47,7 @@ module.exports = merge(commonWebpackFile, {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: "style.bundle.css"
+            filename: "assets/css/style.bundle.css"
         }),
         new CleanWebpackPlugin(),
         new CopyPlugin([

@@ -1,0 +1,8 @@
+.header {
+    background-color: $big-stone;
+    padding: pxToRem(5px) pxToRem(10px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+

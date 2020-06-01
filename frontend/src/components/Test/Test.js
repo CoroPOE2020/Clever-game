@@ -56,6 +56,9 @@ class Test extends Component {
                 <p>{this.state.age}</p>
                 <p>{this.state.pokemon}</p>
                 <button onClick={this.testClick}>Modifier</button>
+                <div className="testClass">
+                    <p className="testClass__para">Je suis une phrase test</p>
+                </div>
             </Fragment>
         )
     }
