@@ -1,65 +1,63 @@
 <?php
 
-namespace App\Controller;
+namespace App\Action;
 
-use App\Repository\GameRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Game;
 use App\Service\ImportIgdb;
 use App\Service\GameImporter;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-class GameController extends AbstractController
+abstract class AbstractSearchAction 
 {
-    protected $gameRepository;
     protected $managerRegistry;
     protected $importIgdb;
     protected $gameImporter;
     protected $igdbExist = false;
     protected $dbExist =  true;
 
+
     public function __construct(
-        GameRepository $gameRepository,
         ManagerRegistry $managerRegistry,
         ImportIgdb $importIgdb,
         GameImporter $gameImporter
     ) {
-        $this->gameRepository = $gameRepository;
         $this->managerRegistry = $managerRegistry;
         $this->importIgdb = $importIgdb;
         $this->gameImporter = $gameImporter;
     }
 
     /**
-     * @Route("/game/{name}/{force}", name="game")
+     * @param string $game
+     * 
+     * @return JsonResponse
      */
 
-    public function game($name = null, $force = null)
+    public function __invoke($game = 'pika', $force = null)
     {
+
         if ($force != null) {
+
             $this->dbExist = false;
-            $this->execute($name);
+            $this->execute($game);
         } else {
-            $repo = $this->gameRepository->findGames($name);
+
+            $repo = $this->managerRegistry->getRepository(Game::class)->findGames($game);
 
             if (empty($repo)) {
-                $this->dbExist = false;
-                $this->execute($name);
-            }
-        }
 
+                $this->dbExist = false;
+                $this->execute($game);
+            }   
+        }
         if ($this->igdbExist) {
-            $repo = $this->gameRepository->findGames($name);
+            $repo = $this->managerRegistry->getRepository(Game::class)->findGames($game);
             if (!empty($repo)) {
                 $this->dbExist  = true;
             }
         }
 
-        return $this->json(
-            [
-                'response' => $repo
-            ]
-        );
+        return new JsonResponse($repo);
     }
 
     protected function execute($name)

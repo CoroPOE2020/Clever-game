@@ -26,7 +26,7 @@ class GameRepository extends ServiceEntityRepository
             ->andWhere('g.name LIKE :val')
             ->setParameter('val', "%$value%")            
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
         ;
     }
 
