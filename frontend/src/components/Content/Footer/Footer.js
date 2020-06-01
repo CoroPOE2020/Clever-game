@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 import  { isMobileOnly, isMobile } from 'react-device-detect';
 
 import Menu from '../../UI/Menu/Menu';
+import MenuFooter from './MenuFooter/MenuFooter';
+import Plus from './Plus/Plus';
+
 
 // let displayMenu = isMobileOnly ? <Menu /> : null;
 
