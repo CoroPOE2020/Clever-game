@@ -11,9 +11,15 @@
     'base/typo';
 
 @import
-    'components/logo-header'; 
+    'components/logo-header',
+    'components/menu', 
+    'components/plus';
     
 @import
     'layouts/header',
-    'layouts/sideMenu';
+    'layouts/sideMenu',
+    'layouts/divtest',
+    'layouts/footer';
+
+
 

@@ -8,6 +8,8 @@ const Content = props => {
         <Fragment>
             <Header />
             {/* Main pages */}
+            <div className="divtest1"></div>
+            <div className="divtest2"></div>
             <Footer />
         </Fragment>
     );

@@ -9,7 +9,8 @@ class Plus extends Component {
         super(props);
 
         this.state = {
-            displayMenuFooter: false
+            displayMenuFooter: false,
+            isConnected: false
         };
 
         store.subscribe(() => {
@@ -24,26 +25,34 @@ class Plus extends Component {
 
     handleClick() {
         if (this.state.displayMenuFooter) {
+            console.log('Clicked, disable Plus');
             this.props.disableFooter();
         }
         else {
+            console.log('Clicked, enable Plus');
             this.props.enableFooter();
         }
     }
 
     render() {
+        let menuClassesItems = '';
+        
+        if (this.isConnected) {
+            menuClassesItems = 'menu-plus-25';
+        }
+      
         return (
             <Fragment>
-                <div onClick={this.handleClick}>
-                    <li><i className="fa fa-ellipsis-h" aria-hidden="true"></i></li>
-                    <li>Plus</li>
-                </div>
+                <nav className={ 'menu-plus ' + menuClassesItems } onClick={this.handleClick}>
+                    <ul className="menu-plus__list">
+                        <li className="menu-plus__list__item"><span><i className="fa fa-ellipsis-h" aria-hidden="true"></i></span>Plus</li>
+                    </ul>   
+                </nav>
                 { this.displayMenuFooter && <MenuFooter /> }
             </Fragment>
         )
     }
 }
-
 
 const mapStateToProps = state => {
     return {

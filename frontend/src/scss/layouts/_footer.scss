@@ -1,13 +1,13 @@
-.header {
-    background-color: $big-stone;
+.footer {
+    background-color: $fuel-yellow;
     padding: pxToRem(5px) pxToRem(10px);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     position: fixed;
     width: 100%;
-    top: 0;
+    bottom: 0;
     overflow: hide;
+    color: $black-pearl;
     height: pxToRem(60px);
 }
-
