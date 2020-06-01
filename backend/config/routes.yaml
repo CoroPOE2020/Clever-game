@@ -2,6 +2,8 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-test:
-    path: /test/{game}
+game:
+    path: /game/{game}/{force}
     controller: App\Action\GameAction
+    defaults:
+        force: null

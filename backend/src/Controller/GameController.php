@@ -31,7 +31,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/game/{name}/{force}", name="game")
+     * @Route("/gamecontroler/{name}/{force}", name="game")
      */
 
     public function game($name = null, $force = null)
@@ -40,7 +40,7 @@ class GameController extends AbstractController
             $this->dbExist = false;
             $this->execute($name);
         } else {
-            $repo = $this->gameRepository->findGames($name);
+            $repo = $this->gameRepository->findData($name);
 
             if (empty($repo)) {
                 $this->dbExist = false;
@@ -49,7 +49,7 @@ class GameController extends AbstractController
         }
 
         if ($this->igdbExist) {
-            $repo = $this->gameRepository->findGames($name);
+            $repo = $this->gameRepository->findData($name);
             if (!empty($repo)) {
                 $this->dbExist  = true;
             }

@@ -2,56 +2,59 @@
 
 namespace App\Action;
 
-use App\Entity\Game;
 use App\Service\ImportIgdb;
 use App\Service\GameImporter;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-abstract class AbstractSearchAction 
+abstract class AbstractSearchAction
 {
     protected $managerRegistry;
     protected $importIgdb;
-    protected $gameImporter;
+    protected $gameImporter;  //ImportInterface
     protected $igdbExist = false;
     protected $dbExist =  true;
-
+    protected $entity;
+    protected $apiEndpoint;
+    protected $fields;
+    protected $options;
 
     public function __construct(
         ManagerRegistry $managerRegistry,
         ImportIgdb $importIgdb,
-        GameImporter $gameImporter
+        GameImporter $gameImporter //ImportInterface
     ) {
         $this->managerRegistry = $managerRegistry;
         $this->importIgdb = $importIgdb;
-        $this->gameImporter = $gameImporter;
+        $this->gameImporter = $gameImporter; //ImportInterface
+
     }
 
     /**
-     * @param string $game
+     * @param string $name
      * 
      * @return JsonResponse
      */
 
-    public function __invoke($game = 'pika', $force = null)
+    public function ActionJsonResponse($name, $force = null)
     {
 
         if ($force != null) {
 
             $this->dbExist = false;
-            $this->execute($game);
+            $this->execute($name);
         } else {
 
-            $repo = $this->managerRegistry->getRepository(Game::class)->findGames($game);
+            $repo = $this->managerRegistry->getRepository($this->entity)->findData($name);
 
             if (empty($repo)) {
 
                 $this->dbExist = false;
-                $this->execute($game);
-            }   
+                $this->execute($name);
+            }
         }
         if ($this->igdbExist) {
-            $repo = $this->managerRegistry->getRepository(Game::class)->findGames($game);
+            $repo = $this->managerRegistry->getRepository($this->entity)->findData($name);
             if (!empty($repo)) {
                 $this->dbExist  = true;
             }
@@ -62,11 +65,7 @@ abstract class AbstractSearchAction
 
     protected function execute($name)
     {
-        $apiEndpoint = 'games';
-        $fields = 'name';
-        $options = 'where version_parent = null & category = 0';
-
-        $responseJson = $this->importIgdb->setImport($name, $apiEndpoint, $fields, $options);
+        $responseJson = $this->importIgdb->setImport($name, $this->apiEndpoint, $this->fields, $this->options);
 
         $data = json_decode($responseJson);
 
@@ -77,7 +76,6 @@ abstract class AbstractSearchAction
         }
 
         foreach ($data as $entry) {
-
             $DTO = $this->gameImporter->read($entry);
             $entity = $this->gameImporter->process($DTO);
             $this->gameImporter->write($entity);

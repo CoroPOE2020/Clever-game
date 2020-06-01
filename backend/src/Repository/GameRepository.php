@@ -20,7 +20,7 @@ class GameRepository extends ServiceEntityRepository
     }
 
 
-    public function findGames ($value) 
+    public function findData ($value) 
     {
         return $this->createQueryBuilder('g')
             ->andWhere('g.name LIKE :val')
