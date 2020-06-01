@@ -3,7 +3,7 @@
 namespace App\Action;
 
 use App\Service\ImportIgdb;
-use App\Service\GameImporter;
+use App\Service\ImporterInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -11,7 +11,7 @@ abstract class AbstractSearchAction
 {
     protected $managerRegistry;
     protected $importIgdb;
-    protected $gameImporter;  //ImportInterface
+    protected $importer;
     protected $igdbExist = false;
     protected $dbExist =  true;
     protected $entity;
@@ -22,11 +22,11 @@ abstract class AbstractSearchAction
     public function __construct(
         ManagerRegistry $managerRegistry,
         ImportIgdb $importIgdb,
-        GameImporter $gameImporter //ImportInterface
+        ImporterInterface $importer
     ) {
         $this->managerRegistry = $managerRegistry;
         $this->importIgdb = $importIgdb;
-        $this->gameImporter = $gameImporter; //ImportInterface
+        $this->importer = $importer;
 
     }
 
@@ -76,9 +76,9 @@ abstract class AbstractSearchAction
         }
 
         foreach ($data as $entry) {
-            $DTO = $this->gameImporter->read($entry);
-            $entity = $this->gameImporter->process($DTO);
-            $this->gameImporter->write($entity);
+            $DTO = $this->importer->read($entry);
+            $entity = $this->importer->process($DTO);
+            $this->importer->write($entity);
         }
     }
 }
