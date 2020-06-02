@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import store from '../../../../store/store';
 import MenuFooter from '../MenuFooter/MenuFooter';
 import { enableFooter, disableFooter } from '../../../../store/slices/footerSlice';
+import { connected, disconnected } from '../../../../store/slices/userSlice';
 
 
 class Plus extends Component {
@@ -47,7 +48,7 @@ class Plus extends Component {
         // Add specific css classes depending isConnected or not
         let menuClassesItems = '';
         
-        if (this.isConnected) {
+        if (this.state.isConnected) {
             menuClassesItems = 'menu-plus-25';
         }
       
@@ -67,12 +68,18 @@ class Plus extends Component {
 // Pass state into component props
 const mapStateToProps = state => {
     return {
-        displayMenuFooter: state.displayMenuFooter
+        displayMenuFooter: state.displayMenuFooter,
+        isConnected: state.isConnected
     }
 };
 
 // Access dispatch functions to props
-const mapDispatchToProps = { enableFooter, disableFooter };
+const mapDispatchToProps = { 
+    enableFooter, 
+    disableFooter, 
+    connected, 
+    disconnected
+};
 
 // connection to redux store
 export default connect(mapStateToProps, mapDispatchToProps)(Plus);
