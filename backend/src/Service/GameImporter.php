@@ -13,6 +13,11 @@ class GameImporter implements ImporterInterface
 {
     protected $managerRegistry;
     protected $gameRepository;
+    private $rating = 0;
+    private $summary = null;
+    private $url = null;
+    private $first_release_date = 0;
+
 
     public function __construct(ManagerRegistry $managerRegistry, GameRepository $gameRepository)
     {
@@ -33,7 +38,26 @@ class GameImporter implements ImporterInterface
             return null;
         }
 
-        $dto = new GameDto($data->id, $data->name);
+        // print_r($data);
+        // die();
+
+        // verifier que le choix demandé existe. Si oui on le stock dans la variable créer.
+        // Sinon on laisse la valeur par defaut de la variable
+        isset($data->rating) ? $this->rating = $data->rating : $this->rating;
+        isset($data->summary) ? $this->summary = $data->summary : $this->summary;
+        isset($data->url) ? $this->url = $data->url : $this->url;
+        isset($data->first_release_date) ? $this->first_release_date = $data->first_release_date : $this->first_release_date;
+
+        // print_r($this->summary);
+        //              dans DTO , IGDB Factory, GameImporter
+
+        //  age_rating = faire une entity 
+        //  imgUrl 
+
+
+        $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date);
+        // print_r($dto);
+        // die();
 
         return $dto;
     }
@@ -66,4 +90,5 @@ class GameImporter implements ImporterInterface
     {
         return $this->managerRegistry->getManagerForClass(Game::class);
     }
+
 }
