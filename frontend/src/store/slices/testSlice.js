@@ -32,6 +32,7 @@ export const testSlice = createSlice({
     }
 });
 
+// Dispatch intermediary actions for asynchronous calls (Api, databases.)
 export const fetchPokemonData = (pokemonName) => {
     console.log(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
     // TODO dispatch(fetchPokemonDataRequest); // => { loading: true } pour le spinner

@@ -1,3 +1,8 @@
+/*
+    MenuFooter Component
+    Display the Terms of use, Contact, FAQ and Social Medias icons in the footer Menu
+*/
+
 import React, { Fragment, Component } from 'react';
 
 

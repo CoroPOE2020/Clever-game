@@ -1,20 +1,28 @@
+/*
+    Plus Component
+    Wrapper for MenuFooter Component exclusively for mobile devices 
+*/
+
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+
 import store from '../../../../store/store';
 import MenuFooter from '../MenuFooter/MenuFooter';
 import { enableFooter, disableFooter } from '../../../../store/slices/footerSlice';
+
 
 class Plus extends Component {
     constructor(props) {
         super(props);
 
+        // Plus class state
         this.state = {
             displayMenuFooter: false,
             isConnected: false
         };
 
+        // Applying modifications from store to state when actions are dispatched
         store.subscribe(() => {
-            console.log(store.getState().footer.displayMenuFooter);
             this.setState({
                 displayMenuFooter: store.getState().footer.displayMenuFooter
             });
@@ -23,6 +31,7 @@ class Plus extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
+    // Handled the click from the Plus component click, enables or disables the menu modal that appears
     handleClick() {
         if (this.state.displayMenuFooter) {
             console.log('Clicked, disable Plus');
@@ -35,6 +44,7 @@ class Plus extends Component {
     }
 
     render() {
+        // Add specific css classes depending isConnected or not
         let menuClassesItems = '';
         
         if (this.isConnected) {
@@ -54,12 +64,15 @@ class Plus extends Component {
     }
 }
 
+// Pass state into component props
 const mapStateToProps = state => {
     return {
         displayMenuFooter: state.displayMenuFooter
     }
 };
 
+// Access dispatch functions to props
 const mapDispatchToProps = { enableFooter, disableFooter };
 
+// connection to redux store
 export default connect(mapStateToProps, mapDispatchToProps)(Plus);

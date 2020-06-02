@@ -1,3 +1,8 @@
+/*
+    App Component
+    Main Component of the Clever-Game
+*/
+
 import React, { Fragment } from "react";
 
 import Content from './Content/Content';
