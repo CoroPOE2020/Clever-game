@@ -1,3 +1,8 @@
+/*
+    Logo Component
+    Display Clever-Game Logo
+*/
+
 import React, { Fragment, Component } from 'react';
 
 import logoImg from '../../../assets/img/cleverGameLogo.png';
@@ -8,6 +13,7 @@ class Logo extends Component {
     }
 
     render() {
+        // Add specific css classes depending on logo position props
         const cssClasses = ["logo"];
 
         if (this.props.position) {
@@ -21,6 +27,5 @@ class Logo extends Component {
         )
     }
 }
-
 
 export default Logo;

@@ -1,3 +1,8 @@
+/*
+    MenuFooter Component
+    Display the Terms of use, Contact, FAQ and Social Medias icons in the footer Menu
+*/
+
 import React, { Fragment, Component } from 'react';
 
 
@@ -17,13 +22,13 @@ class MenuFooter extends Component {
                         <li className="footer__menu__list__item">
                             <ul className="footer__menu__list__item__sociallist">
                                 <li className="footer__menu__list__item__sociallist__item">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    <i className="fa fa-twitter" aria-hidden="true"></i>
                                 </li>
                                 <li className="footer__menu__list__item__sociallist__item">
-                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    <i className="fa fa-instagram" aria-hidden="true"></i>
                                 </li>
                                 <li className="footer__menu__list__item__sociallist__item">
-                                    <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                                    <i className="fa fa-facebook-official" aria-hidden="true"></i>
                                 </li>
                             </ul>
                         </li>

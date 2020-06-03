@@ -1,0 +1,11 @@
+.button {
+    width: pxToRem(155px);
+    height: pxToRem(48px);
+    border: none;
+    border-radius: 4px;
+    // color: $black-pearl;
+
+    &__cancel {
+        background-color: $scarlet;
+    }
+}

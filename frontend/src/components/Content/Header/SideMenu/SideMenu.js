@@ -1,3 +1,8 @@
+/*
+    Side Menu Component 
+    Emoticones in the Header 
+*/
+
 import React, { Fragment, Component } from 'react';
 
 
