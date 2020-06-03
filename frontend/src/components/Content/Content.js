@@ -21,7 +21,7 @@ const Content = props => {
             <div className="divtest1"></div>
             <div className="divtest2">
                 <Button
-                    disabled="no" 
+                    disabled="no"
                     submit="no" 
                     btnClass="cancel" 
                     clicked={handleClick}>

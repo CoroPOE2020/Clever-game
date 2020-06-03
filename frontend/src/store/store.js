@@ -9,6 +9,7 @@ import { createLogger } from 'redux-logger';
 // import testSlice from './slices/testSlice';
 import footerSlice from './slices/footerSlice';
 import userSlice from './slices/userSlice';
+import formValidateSlice from './slices/formValidateSlice';
 // import { checkAgePositive } from '../middleware/redux/checkAgePositive';
 
 // Adding middlewares to redux
@@ -23,7 +24,8 @@ const store = configureStore({
     reducer: {
         //test: testSlice,
         footer: footerSlice, 
-        user: userSlice
+        user: userSlice,
+        formValidate: formValidateSlice
     },
     middleware
 });
