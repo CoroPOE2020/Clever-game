@@ -19,7 +19,7 @@ class Plus extends Component {
         // Plus class state
         this.state = {
             displayMenuFooter: false,
-            isConnected: false
+            isConnected: true
         };
 
         // Applying modifications from store to state when actions are dispatched

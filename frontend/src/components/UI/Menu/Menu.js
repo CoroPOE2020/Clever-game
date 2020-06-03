@@ -15,7 +15,7 @@ class Menu extends Component {
         super(props);
 
         this.state = {
-            isConnected: false
+            isConnected: true
         };
 
         store.subscribe(() => {
