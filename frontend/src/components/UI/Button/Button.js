@@ -12,13 +12,19 @@ class Button extends Component {
 
     render() {
         // Add specific css classes depending on button type props
-        const cssClasses = ["button"]; // "button__cancel" // "button button__cancel"
-        console.log(this.props);
+        const cssClasses = ["button"];
+
         if (this.props.btnClass) {
             cssClasses.push('button__' + this.props.btnClass);
         }
-        console.log(this.props);
         
+        /*
+            - className: Dynamicly adds css classes
+            - type: Defines the button type (submit or not)
+            - onClick: Triggers function on click event
+            - disabled: Enables or disables the button
+            - children: Gets the button name
+        */
         return (
             <button 
                 className={cssClasses.join(' ')} 
