@@ -11,11 +11,13 @@ import footerSlice from './slices/footerSlice';
 import userSlice from './slices/userSlice';
 import formValidateSlice from './slices/formValidateSlice';
 // import { checkAgePositive } from '../middleware/redux/checkAgePositive';
+// import { checkForm } from '../middleware/redux/checkForm';
 
 // Adding middlewares to redux
 const middleware = [
     ...getDefaultMiddleware(),
     createLogger(),
+    //checkForm
     //checkAgePositive
 ];
 

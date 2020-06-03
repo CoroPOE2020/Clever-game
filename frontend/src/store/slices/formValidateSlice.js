@@ -20,11 +20,12 @@ export const formValidateSlice = createSlice({
         formValid: (state, action) => {
             state.isFormValid = true;
         },
-        formNotValid: (state, action) => {
-            state.isFormValid = false;
-        },
+        // formNotValid: (state, action) => {
+        //     state.isFormValid = false;
+        // },
         // TODO
         // fieldError: (state, action) => {
+        //      state.isFormValid = false;
         //     state.errorFormField
         // }
     }
