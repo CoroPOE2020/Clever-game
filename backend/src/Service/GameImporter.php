@@ -8,21 +8,25 @@ use App\Factory\IgdbFactory;
 use App\Repository\GameRepository;
 use App\Service\ImporterInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Service\AssetInterface;
 
 class GameImporter implements ImporterInterface
 {
     protected $managerRegistry;
     protected $gameRepository;
+    protected $assetInterface;
     private $rating = 0;
     private $summary = null;
     private $url = null;
     private $first_release_date = 0;
+    private $image_id = '';
 
 
-    public function __construct(ManagerRegistry $managerRegistry, GameRepository $gameRepository)
+    public function __construct(ManagerRegistry $managerRegistry, GameRepository $gameRepository, AssetInterface $assetInterface)
     {
         $this->managerRegistry = $managerRegistry;
         $this->gameRepository = $gameRepository;
+        $this->assetInterface = $assetInterface;
     }
 
     public function read($data)
@@ -47,19 +51,14 @@ class GameImporter implements ImporterInterface
         isset($data->summary) ? $this->summary = $data->summary : $this->summary;
         isset($data->url) ? $this->url = $data->url : $this->url;
         isset($data->first_release_date) ? $this->first_release_date = $data->first_release_date : $this->first_release_date;
+        isset($data->cover) ? $data_image = $this->getGameCover($data->cover) : $this->image_id;
+        
+        isset($data_image) ? $this->image_id = $data_image : $this->image_id;
 
-        // print_r($this->summary);
-        //              dans DTO , IGDB Factory, GameImporter
-
-        //  age_rating = faire une entity 
-        //  imgUrl 
-
-
-        $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date);
-        // print_r($dto);
-        // die();
+        $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date, $this->image_id);
 
         return $dto;
+
     }
 
     public function process($data): ?Game
@@ -91,4 +90,13 @@ class GameImporter implements ImporterInterface
         return $this->managerRegistry->getManagerForClass(Game::class);
     }
 
+    protected function getGameCover($identifier)
+    {
+        $cover = json_decode($this->assetInterface->getCoverId($identifier));
+        $response = $cover[0]->image_id;
+         return $response;
+        // print_r($this->image_id);
+        // die;
+    }
+    
 }

@@ -21,6 +21,7 @@ class IgdbFactory
         $gameEntity->setDescription($gameDto->getDescription());
         $gameEntity->setIgdbUrl($gameDto->getIgdbUrl());
         $gameEntity->setReleaseDate($gameDto->getReleaseDate());
+        $gameEntity->setCoverId($gameDto->getCoverId());
 
         return $gameEntity;
     }

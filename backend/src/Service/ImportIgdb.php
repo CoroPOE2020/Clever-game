@@ -4,7 +4,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ImportIgdb
+class ImportIgdb implements AssetInterface
 {
     protected $httpclient;
     protected $url = 'https://api-v3.igdb.com';
@@ -35,5 +35,20 @@ class ImportIgdb
     public function setPath($url, $path)
     {
         return join(DIRECTORY_SEPARATOR, [$url, $path]);
+    }
+
+    public function getCoverId(int $identifier): ?string
+    {
+        $request = $this->httpclient->request('GET', 'https://api-v3.igdb.com/covers', [
+            'headers' => [
+                'user-key' => $_ENV['APP_IGDB_TOKEN']
+            ],
+
+            'body' => 'fields image_id; where id =  ' . $identifier . ';'
+        ]);
+
+        $coverId = $request->getContent();
+
+        return $coverId;
     }
 }

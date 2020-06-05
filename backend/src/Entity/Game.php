@@ -29,7 +29,7 @@ class Game
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imgUrl;
+    private $coverId;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -85,14 +85,14 @@ class Game
         return $this;
     }
 
-    public function getImgUrl(): ?string
+    public function getCoverId(): ?string
     {
-        return $this->imgUrl;
+        return $this->coverId;
     }
 
-    public function setImgUrl(?string $imgUrl): self
+    public function setCoverId(?string $coverId): self
     {
-        $this->imgUrl = $imgUrl;
+        $this->coverId = $coverId;
 
         return $this;
     }
