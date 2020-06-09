@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
-class GameDto 
+class GameDto
 {
     private $identifier;
     private $name;
@@ -12,7 +12,6 @@ class GameDto
     private $description;
     private $igdbUrl;
     private $releaseDate;
-    private $coverId;
 
     /**
      * @param string $identifier
@@ -21,9 +20,8 @@ class GameDto
      * @param string $description
      * @param string $igdbUrl
      * @param int $releaseDate
-     * @param string $coverId
      */
-    public function __construct(string $identifier, string $name, int $rating, string $description, string $igdbUrl, int $releaseDate, string $coverId)
+    public function __construct(string $identifier, string $name, int $rating, string $description, string $igdbUrl, int $releaseDate)
     {
         $this->identifier = $identifier;
         $this->name = $name;
@@ -31,7 +29,6 @@ class GameDto
         $this->description = $description;
         $this->igdbUrl = $igdbUrl;
         $this->releaseDate = $releaseDate;
-        $this->$coverId = $coverId;
     }
 
     /**
@@ -73,19 +70,12 @@ class GameDto
     {
         return $this->igdbUrl;
     }
+
     /**
      * @return int
      */
     public function getReleaseDate(): ?int
     {
         return $this->releaseDate;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getCoverId(): ?string
-    {
-        return $this->coverId;
     }
 }

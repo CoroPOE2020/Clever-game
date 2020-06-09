@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Service\AssetInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ImportIgdb implements AssetInterface

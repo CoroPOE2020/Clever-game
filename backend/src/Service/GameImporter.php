@@ -19,7 +19,7 @@ class GameImporter implements ImporterInterface
     private $summary = null;
     private $url = null;
     private $first_release_date = 0;
-    private $image_id = '';
+    private $image_id = null;
 
 
     public function __construct(ManagerRegistry $managerRegistry, GameRepository $gameRepository, AssetInterface $assetInterface)
@@ -42,20 +42,17 @@ class GameImporter implements ImporterInterface
             return null;
         }
 
-        // print_r($data);
-        // die();
-
         // verifier que le choix demandé existe. Si oui on le stock dans la variable créer.
         // Sinon on laisse la valeur par defaut de la variable
         isset($data->rating) ? $this->rating = $data->rating : $this->rating;
         isset($data->summary) ? $this->summary = $data->summary : $this->summary;
         isset($data->url) ? $this->url = $data->url : $this->url;
         isset($data->first_release_date) ? $this->first_release_date = $data->first_release_date : $this->first_release_date;
-        isset($data->cover) ? $data_image = $this->getGameCover($data->cover) : $this->image_id;
         
-        isset($data_image) ? $this->image_id = $data_image : $this->image_id;
+        isset($data->cover) ? $this->image_id = $data->cover : $this->image_id = null;
 
-        $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date, $this->image_id);
+        $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date);
+
 
         return $dto;
 
@@ -68,6 +65,7 @@ class GameImporter implements ImporterInterface
         }
 
         $gameEntity = IgdbFactory::CreateGame($data);
+        $this->getGameCover($gameEntity);
 
         return $gameEntity;
     }
@@ -90,13 +88,12 @@ class GameImporter implements ImporterInterface
         return $this->managerRegistry->getManagerForClass(Game::class);
     }
 
-    protected function getGameCover($identifier)
+    protected function getGameCover(Game $game): void
     {
-        $cover = json_decode($this->assetInterface->getCoverId($identifier));
-        $response = $cover[0]->image_id;
-         return $response;
-        // print_r($this->image_id);
-        // die;
+        isset($this->image_id) ? $cover = json_decode($this->assetInterface->getCoverId($this->image_id)) : $cover = null;
+        isset($cover) ? $response = $cover[0]->image_id : $response = null;
+    
+        $game->setCoverId($response);
     }
     
 }
