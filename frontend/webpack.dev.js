@@ -13,7 +13,8 @@ module.exports = merge(commonWebpackFile, {
         watchContentBase: true,
         host: '0.0.0.0',
         port: 3000,
-        disableHostCheck: true
+        disableHostCheck: true,
+        historyApiFallback: true,
     },
     devtool: "source-map",
     module: {

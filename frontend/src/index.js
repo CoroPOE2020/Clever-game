@@ -13,7 +13,7 @@ import './scss/main.scss';
 
 ReactDOM.render(
     <Provider store={ store }>
-        <App />
+            <App />
     </Provider>,
     document.getElementById("root")
 );
