@@ -65,7 +65,7 @@ abstract class AbstractSearchAction
 
     protected function execute($name)
     {
-        $responseJson = $this->importIgdb->setImport($name, $this->apiEndpoint, $this->fields, $this->options);
+        $responseJson = $this->importIgdb->setImportByString($name, $this->apiEndpoint, $this->fields, $this->options);
        
         $data = json_decode($responseJson);
 

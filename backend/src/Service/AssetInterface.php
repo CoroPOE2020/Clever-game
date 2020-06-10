@@ -4,5 +4,7 @@ namespace App\Service;
 
 interface AssetInterface
 {
-    public function getCoverId(int $id);
+    public function setImportByString(string $name, $apiEndpoint, $fields, $options);
+
+    public function setImportById(int $id, $apiEndpoint, $fields);
 }

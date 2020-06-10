@@ -15,8 +15,7 @@ class ImportIgdb implements AssetInterface
         $this->httpclient = $httpclient;
     }
 
-
-    public function setImport($name, $apiEndpoint, $fields, $options)
+    public function setImportByString($name, $apiEndpoint, $fields, $options)
     {
         $path = $this->setPath($this->url, $apiEndpoint);
 
@@ -32,24 +31,26 @@ class ImportIgdb implements AssetInterface
 
         return $data;
     }
-    
-    public function setPath($url, $path)
-    {
-        return join(DIRECTORY_SEPARATOR, [$url, $path]);
-    }
 
-    public function getCoverId(int $identifier): ?string
+    public function setImportById(int $identifier, $apiEndpoint, $fields)
     {
-        $request = $this->httpclient->request('GET', 'https://api-v3.igdb.com/covers', [
+        $path = $this->setPath($this->url, $apiEndpoint);
+
+        $request = $this->httpclient->request('GET', $path, [
             'headers' => [
                 'user-key' => $_ENV['APP_IGDB_TOKEN']
             ],
 
-            'body' => 'fields image_id; where id =  ' . $identifier . ';'
+            'body' => 'fields ' . $fields . '; where id =  ' . $identifier . '; '
         ]);
 
-        $coverId = $request->getContent();
+        $data = $request->getContent();
 
-        return $coverId;
+        return $data;
+    }
+
+    public function setPath($url, $path)
+    {
+        return join(DIRECTORY_SEPARATOR, [$url, $path]);
     }
 }

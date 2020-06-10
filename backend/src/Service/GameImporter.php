@@ -48,14 +48,12 @@ class GameImporter implements ImporterInterface
         isset($data->summary) ? $this->summary = $data->summary : $this->summary;
         isset($data->url) ? $this->url = $data->url : $this->url;
         isset($data->first_release_date) ? $this->first_release_date = $data->first_release_date : $this->first_release_date;
-        
+
         isset($data->cover) ? $this->image_id = $data->cover : $this->image_id = null;
 
         $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date);
 
-
         return $dto;
-
     }
 
     public function process($data): ?Game
@@ -65,6 +63,7 @@ class GameImporter implements ImporterInterface
         }
 
         $gameEntity = IgdbFactory::CreateGame($data);
+        
         $this->getGameCover($gameEntity);
 
         return $gameEntity;
@@ -90,10 +89,9 @@ class GameImporter implements ImporterInterface
 
     protected function getGameCover(Game $game): void
     {
-        isset($this->image_id) ? $cover = json_decode($this->assetInterface->getCoverId($this->image_id)) : $cover = null;
+        isset($this->image_id) ? $cover = json_decode($this->assetInterface->setImportById($this->image_id, 'covers', 'image_id')) : $cover = null;
         isset($cover) ? $response = $cover[0]->image_id : $response = null;
-    
+
         $game->setCoverId($response);
     }
-    
 }
