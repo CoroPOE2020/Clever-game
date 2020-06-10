@@ -89,7 +89,8 @@ class GameImporter implements ImporterInterface
 
     protected function getGameCover(Game $game): void
     {
-        isset($this->image_id) ? $cover = json_decode($this->assetInterface->setImportById($this->image_id, 'covers', 'image_id')) : $cover = null;
+        isset($this->image_id) ? $cover = json_decode($this->assetInterface->setImport($this->image_id, 'covers', 'integer', 'image_id', '')) : $cover = null;
+
         isset($cover) ? $response = $cover[0]->image_id : $response = null;
 
         $game->setCoverId($response);

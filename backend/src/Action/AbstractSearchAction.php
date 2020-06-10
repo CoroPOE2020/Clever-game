@@ -16,6 +16,7 @@ abstract class AbstractSearchAction
     protected $dbExist =  true;
     protected $entity;
     protected $apiEndpoint;
+    protected $searchType;
     protected $fields;
     protected $options;
 
@@ -65,7 +66,7 @@ abstract class AbstractSearchAction
 
     protected function execute($name)
     {
-        $responseJson = $this->importIgdb->setImportByString($name, $this->apiEndpoint, $this->fields, $this->options);
+        $responseJson = $this->importIgdb->setImport($name, $this->apiEndpoint, $this->searchType, $this->fields, $this->options);
        
         $data = json_decode($responseJson);
 

@@ -7,3 +7,8 @@ game:
     controller: App\Action\GameAction
     defaults:
         force: null
+
+ageRating:
+    path: /ageRating
+    controller: App\Action\AgeRatingAction
+

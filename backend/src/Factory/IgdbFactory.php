@@ -2,6 +2,8 @@
 
 namespace App\Factory;
 
+use App\DTO\AgeRatingDto;
+use App\Entity\AgeRating;
 use App\Entity\Game;
 use App\DTO\GameDto;
 
@@ -22,6 +24,22 @@ class IgdbFactory
         $gameEntity->setIgdbUrl($gameDto->getIgdbUrl());
         $gameEntity->setReleaseDate($gameDto->getReleaseDate());
 
+
         return $gameEntity;
+    }
+
+    /**
+     * @param AgeRatingDto $ageRatingDto
+     *
+     * @return AgeRating $ageRatingEntity
+     */
+    public static function CreateAgeRating(AgeRatingDto $ageRatingDto)
+    {
+        $ageRatingEntity = new AgeRating;
+        $ageRatingEntity->setIdentifier($ageRatingDto->getIdentifier());
+        $ageRatingEntity->setCategory($ageRatingDto->getCategory());
+        $ageRatingEntity->setRating($ageRatingDto->getRating());
+
+        return $ageRatingEntity;
     }
 }
