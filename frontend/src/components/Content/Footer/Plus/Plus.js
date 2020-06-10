@@ -47,19 +47,25 @@ class Plus extends Component {
     render() {
         // Add specific css classes depending isConnected or not
         let menuClassesItems = '';
+        let dropUp = null;
         
         if (this.state.isConnected) {
             menuClassesItems = 'menu-plus-25';
         }
+
+        if (this.state.displayMenuFooter) {
+            dropUp = <MenuFooter dropup='yes'/>;
+        }
       
         return (
+            
             <Fragment>
                 <nav className={ 'menu-plus ' + menuClassesItems } onClick={this.handleClick}>
                     <ul className="menu-plus__list">
                         <li className="menu-plus__list__item"><span><i className="fa fa-ellipsis-h" aria-hidden="true"></i></span>Plus</li>
                     </ul>   
                 </nav>
-                { this.displayMenuFooter && <MenuFooter /> }
+                { dropUp }
             </Fragment>
         )
     }
