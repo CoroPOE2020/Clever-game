@@ -5,6 +5,8 @@
 
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 
 import { connected, disconnected } from '../../../store/slices/userSlice';
 import store from '../../../store/store';
@@ -15,7 +17,7 @@ class Menu extends Component {
         super(props);
 
         this.state = {
-            isConnected: true
+            isConnected: false
         };
 
         store.subscribe(() => {
@@ -36,7 +38,17 @@ class Menu extends Component {
         if (this.state.isConnected) {
             console.log('HERE');
             menuClassesItems = 'menu-75';
-            displayRoomsMenu = (<li className="menu__list__item"><span><i className="fa fa-home" aria-hidden="true"></i></span>Rooms</li>);
+            displayRoomsMenu = (
+                
+                
+             <li className="menu__list__item">
+                 <NavLink to={'/rooms'} alt='rooms'>
+                    <span>
+                        <i className="fa fa-home" aria-hidden="true"></i>
+                    </span>Rooms
+                 </NavLink>
+            </li>
+            );
         }
 
 
@@ -44,9 +56,19 @@ class Menu extends Component {
             <Fragment>
                 <nav className={ 'menu ' + menuClassesItems }>
                     <ul className="menu__list">
-                        <li className="menu__list__item"><span><i className="fa fa-home" aria-hidden="true"></i></span>Home</li>
+                        <li className="menu__list__item">
+                            <NavLink to={'/home'} alt='home'>
+                                <span><i className="fa fa-home" aria-hidden="true"></i></span>
+                                Home
+                            </NavLink>
+                        </li>
                         { displayRoomsMenu }
-                        <li className="menu__list__item"><span><i className="fa fa-gamepad" aria-hidden="true"></i></span>Games</li>
+                        <li className="menu__list__item">
+                            <NavLink to={'/games'} alt='games'>
+                                <span><i className="fa fa-gamepad" aria-hidden="true"></i></span>
+                                Games    
+                            </NavLink>
+                        </li>
                     </ul>      
                 </nav>
             </Fragment>

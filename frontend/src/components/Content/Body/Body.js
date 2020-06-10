@@ -15,7 +15,7 @@ const Body = props => {
         <div className='body'>
             <p>Hello</p>
             <Switch>
-                {/* <Route exact path='/' component={Home} /> */}
+                <Route exact path='/home' />
                 <Route exact path='/signin' component={SignIn} />
                 {/* <Route path='/signup' component={SignUp} /> */}
                 {/* <Redirect to='/' />  */}

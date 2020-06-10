@@ -4,6 +4,8 @@
 */
 
 import React, { Fragment, Component } from 'react';
+import { NavLink } from 'react-router-dom';
+
 
 
 class MenuFooter extends Component {
@@ -14,21 +16,40 @@ class MenuFooter extends Component {
     render() {
         return (
             <Fragment>
+
                 <nav className="footer__menu">
                     <ul className="footer__menu__list">
-                        <li className="footer__menu__list__item">Terms of use</li>
-                        <li className="footer__menu__list__item">Contact</li>
-                        <li className="footer__menu__list__item">F.A.Q.</li>
+                        
+                        <li className="footer__menu__list__item">
+                            <NavLink to={'/terms'} alt='terms'>Terms of use</NavLink>
+                        </li>
+
+                        <li className="footer__menu__list__item">
+                            <NavLink to={'/contact'} alt='contact'>Contact</NavLink>
+                        </li>
+
+                        <li className="footer__menu__list__item">
+                            <NavLink to={'/faq'} alt='faq'>F.A.Q</NavLink>
+                        </li>
+
                         <li className="footer__menu__list__item">
                             <ul className="footer__menu__list__item__sociallist">
                                 <li className="footer__menu__list__item__sociallist__item">
-                                    <i className="fa fa-twitter" aria-hidden="true"></i>
+                                    <NavLink to={'#'} alt='twitter'>
+                                        <i className="fa fa-twitter" aria-hidden="true"></i>
+                                    </NavLink>
                                 </li>
+
                                 <li className="footer__menu__list__item__sociallist__item">
-                                    <i className="fa fa-instagram" aria-hidden="true"></i>
+                                    <NavLink to={'#'} alt='instagram'>
+                                        <i className="fa fa-instagram" aria-hidden="true"></i>
+                                    </NavLink>    
                                 </li>
+
                                 <li className="footer__menu__list__item__sociallist__item">
-                                    <i className="fa fa-facebook-official" aria-hidden="true"></i>
+                                    <NavLink to={'#'} alt='facebook'>
+                                        <i className="fa fa-facebook-official" aria-hidden="true"></i>
+                                    </NavLink>   
                                 </li>
                             </ul>
                         </li>
