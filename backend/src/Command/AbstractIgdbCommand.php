@@ -19,8 +19,9 @@ abstract class AbstractIgdbCommand extends Command
     protected $importCommand;
     protected $fields;
     protected $options;
+    protected $searchType;
 
-    public function __construct($name = null, HttpClientInterface $httpClient, $description, $argument, $fields, $options)
+    public function __construct($name = null, HttpClientInterface $httpClient, $description, $searchType, $argument, $fields, $options)
     {
         parent::__construct($name);
         $this->httpClient = $httpClient;
@@ -28,6 +29,7 @@ abstract class AbstractIgdbCommand extends Command
         $this->argument = $argument;
         $this->fields = $fields;
         $this->options =$options;
+        $this->searchType = $searchType;
     }
 
     protected function configure()
@@ -45,7 +47,7 @@ abstract class AbstractIgdbCommand extends Command
         
         $name = $input->getArgument('name');       
         
-        $this->games = $importCommand->setImport($name, static::$defaultName, $this->fields, $this->options);
+        $this->games = $importCommand->setImport($name, static::$defaultName, $this->searchType, $this->fields, $this->options);
 
         $io->success($this->games);
 

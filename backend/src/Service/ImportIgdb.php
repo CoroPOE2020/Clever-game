@@ -32,47 +32,6 @@ class ImportIgdb implements AssetInterface
         return $data;
     }
 
-/////////////////////////////////////////////////////////
-    // public function setImportById($name, $apiEndpoint, $searchType, $fields, $options)
-    // {
-    //     echo 'coucou by ID';
-    //     $path = $this->setPath($this->url, $apiEndpoint);
-    //     // $searchType = 'search ';
-    //     $body = $this->createBodyRequest($fields, $searchType, $name, $options);
-
-    //     print_r($body);
-    //     die();
-    //     $request = $this->httpclient->request('GET', $path, [
-    //         'headers' => [
-    //             'user-key' => $_ENV['APP_IGDB_TOKEN']
-    //         ],
-
-    //         'body' => $body 
-    //     ]);
-    //     $data = $request->getContent();
-
-    //     return $data;
-    // }
-    //////////////////////////////////////////////////////////////////////////////
-
-
-    // public function setImportById(int $identifier, $apiEndpoint, $fields)
-    // {
-    //     $path = $this->setPath($this->url, $apiEndpoint);
-
-    //     $request = $this->httpclient->request('GET', $path, [
-    //         'headers' => [
-    //             'user-key' => $_ENV['APP_IGDB_TOKEN']
-    //         ],
-
-    //         'body' => 'fields ' . $fields . '; where id =  ' . $identifier . '; '
-    //     ]);
-
-    //     $data = $request->getContent();
-
-    //     return $data;
-    // }
-
     public function setPath($url, $path)
     {
         return join(DIRECTORY_SEPARATOR, [$url, $path]);

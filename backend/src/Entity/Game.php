@@ -49,11 +49,6 @@ class Game
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $ageRating;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
     private $releaseDate;
 
     public function getId(): ?int
@@ -129,18 +124,6 @@ class Game
     public function setIgdbUrl(?string $igdbUrl): self
     {
         $this->igdbUrl = $igdbUrl;
-
-        return $this;
-    }
-
-    public function getAgeRating(): ?int
-    {
-        return $this->ageRating;
-    }
-
-    public function setAgeRating(?int $ageRating): self
-    {
-        $this->ageRating = $ageRating;
 
         return $this;
     }
