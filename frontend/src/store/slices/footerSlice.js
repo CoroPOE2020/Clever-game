@@ -7,7 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Footer initial state
 const footerInitialState = {
-    displayMenuFooter: false
+    displayDropUp: false
 };
 
 // Handles both Actions and Reducers from Redux in slice objects
@@ -17,10 +17,10 @@ export const footerSlice = createSlice({
     initialState: footerInitialState,
     reducers: {
         enableFooter: (state, action) => {
-            state.displayMenuFooter = true;
+            state.displayDropUp = true;
         },
         disableFooter: (state, action) => {
-            state.displayMenuFooter = false;
+            state.displayDropUp = false;
         }
     }
 });

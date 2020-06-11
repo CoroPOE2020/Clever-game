@@ -54,7 +54,7 @@ class Plus extends Component {
         }
 
         if (this.state.displayDropUp) {
-            dropUp = <MenuFooter dropup='yes'/>;
+            dropUp = <MenuFooter dropup='yes' click={this.handleClick}/>;
         }
       
         return (
@@ -74,7 +74,7 @@ class Plus extends Component {
 // Pass state into component props
 const mapStateToProps = state => {
     return {
-        displayMenuFooter: state.displayMenuFooter,
+        displayDropUp: state.displayDropUp,
         isConnected: state.isConnected
     }
 };
