@@ -18,14 +18,14 @@ class Plus extends Component {
 
         // Plus class state
         this.state = {
-            displayMenuFooter: false,
+            displayDropUp: false,
             isConnected: true
         };
 
         // Applying modifications from store to state when actions are dispatched
         store.subscribe(() => {
             this.setState({
-                displayMenuFooter: store.getState().footer.displayMenuFooter
+                displayDropUp: store.getState().footer.displayDropUp
             });
         });
 
@@ -34,7 +34,7 @@ class Plus extends Component {
 
     // Handled the click from the Plus component click, enables or disables the menu modal that appears
     handleClick() {
-        if (this.state.displayMenuFooter) {
+        if (this.state.displayDropUp) {
             console.log('Clicked, disable Plus');
             this.props.disableFooter();
         }
@@ -53,7 +53,7 @@ class Plus extends Component {
             menuClassesItems = 'menu-plus-25';
         }
 
-        if (this.state.displayMenuFooter) {
+        if (this.state.displayDropUp) {
             dropUp = <MenuFooter dropup='yes'/>;
         }
       
