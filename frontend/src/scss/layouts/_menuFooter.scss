@@ -30,6 +30,30 @@
         // }
 
         .underline {
+            border-bottom: 1px solid $stark-white;
+            //   background-size: 6px 4px;
+            //   background-repeat: repeat-x;
+            //   background-position: 0% bottom;
+          
+           animation-name: underdlineAnimation;
+               animation-duration: 3s;
+               animation-delay: 1s;
+               animation-fill-mode: forwards;
+            //   animation-timing-function: linear;
+            //   animation-iteration-count: infinite;
+        }
+
+       
+
+        @keyframes underdlineAnimation{
+           
+            100%{
+                border-bottom: 1px solid black;
+
+            }
+        }
+
+        //.underline {
             // animation-name: underlineAnim;
             // animation-duration: 1s;   
             // animation-timing-function: linear;     
@@ -37,13 +61,13 @@
             // /* New code here: */
             // animation-delay: 1s;
             // display: inline-block;
-            transition: border-bottom 0.5s ease 0s, left 0.5s ease 0s;
-        }
+            //transition: border-bottom 0.5s ease 0s, left 0.5s ease 0s;
+        //}
 
-        .underline:active {
-            border-bottom: 1px solid #000;
-            padding-bottom: 3px;
-        }
+        // .underline:active {
+        //     border-bottom: 1px solid #000;
+        //     padding-bottom: 3px;
+        // }
         
         
         
