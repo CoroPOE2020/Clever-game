@@ -14,13 +14,20 @@
     'components/logo-header',
     'components/menu', 
     'components/plus',
-    'components/button';
+    'components/button',
+    'components/home',
+    'components/games',
+    'components/game',
+    'components/signin',
+    'components/signup';
     
 @import
     'layouts/header',
     'layouts/sideMenu',
+    'layouts/body',
     'layouts/divtest',
-    'layouts/footer';
+    'layouts/footer',
+    'layouts/menuFooter';
 
 
 

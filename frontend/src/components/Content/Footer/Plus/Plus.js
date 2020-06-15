@@ -18,14 +18,14 @@ class Plus extends Component {
 
         // Plus class state
         this.state = {
-            displayMenuFooter: false,
+            displayDropUp: false,
             isConnected: true
         };
 
         // Applying modifications from store to state when actions are dispatched
         store.subscribe(() => {
             this.setState({
-                displayMenuFooter: store.getState().footer.displayMenuFooter
+                displayDropUp: store.getState().footer.displayDropUp
             });
         });
 
@@ -34,7 +34,7 @@ class Plus extends Component {
 
     // Handled the click from the Plus component click, enables or disables the menu modal that appears
     handleClick() {
-        if (this.state.displayMenuFooter) {
+        if (this.state.displayDropUp) {
             console.log('Clicked, disable Plus');
             this.props.disableFooter();
         }
@@ -47,19 +47,25 @@ class Plus extends Component {
     render() {
         // Add specific css classes depending isConnected or not
         let menuClassesItems = '';
+        let dropUp = null;
         
         if (this.state.isConnected) {
             menuClassesItems = 'menu-plus-25';
         }
+
+        if (this.state.displayDropUp) {
+            dropUp = <MenuFooter dropup='yes' click={this.handleClick}/>;
+        }
       
         return (
+            
             <Fragment>
                 <nav className={ 'menu-plus ' + menuClassesItems } onClick={this.handleClick}>
                     <ul className="menu-plus__list">
                         <li className="menu-plus__list__item"><span><i className="fa fa-ellipsis-h" aria-hidden="true"></i></span>Plus</li>
                     </ul>   
                 </nav>
-                { this.displayMenuFooter && <MenuFooter /> }
+                { dropUp }
             </Fragment>
         )
     }
@@ -68,7 +74,7 @@ class Plus extends Component {
 // Pass state into component props
 const mapStateToProps = state => {
     return {
-        displayMenuFooter: state.displayMenuFooter,
+        displayDropUp: state.displayDropUp,
         isConnected: state.isConnected
     }
 };

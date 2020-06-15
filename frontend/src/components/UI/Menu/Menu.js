@@ -5,8 +5,11 @@
 
 import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 
 import { connected, disconnected } from '../../../store/slices/userSlice';
+import { disableFooter } from '../../../store/slices/footerSlice';
 import store from '../../../store/store';
 
 
@@ -15,15 +18,27 @@ class Menu extends Component {
         super(props);
 
         this.state = {
-            isConnected: true
+            isConnected: false,
+            displayDropUp: false, // REVIEW error ?
         };
 
         store.subscribe(() => {
             this.setState({
-                isConnected: store.getState().user.isConnected
+                isConnected: store.getState().user.isConnected,
+                displayDropUp: store.getState().footer.displayDropUp
             });
         });
+
+        this.handleClick = this.handleClick.bind(this);
     }
+
+    handleClick() {
+        if (this.state.displayDropUp) {
+            console.log('Clicked, disable Plus from menu');
+            this.props.disableFooter();
+        }
+    }
+
 
     render() {
         /* 
@@ -34,9 +49,16 @@ class Menu extends Component {
         let menuClassesItems = '';
 
         if (this.state.isConnected) {
-            console.log('HERE');
             menuClassesItems = 'menu-75';
-            displayRoomsMenu = (<li className="menu__list__item"><span><i className="fa fa-home" aria-hidden="true"></i></span>Rooms</li>);
+            displayRoomsMenu = (
+             <li className="menu__list__item">
+                 <NavLink onClick={this.handleClick} to={'/rooms'} alt='rooms'>
+                    <span>
+                        <i className="fa fa-home" aria-hidden="true"></i>
+                    </span>Rooms
+                 </NavLink>
+            </li>
+            );
         }
 
 
@@ -44,9 +66,19 @@ class Menu extends Component {
             <Fragment>
                 <nav className={ 'menu ' + menuClassesItems }>
                     <ul className="menu__list">
-                        <li className="menu__list__item"><span><i className="fa fa-home" aria-hidden="true"></i></span>Home</li>
+                        <li className="menu__list__item">
+                            <NavLink onClick={this.handleClick} to={'/home'} alt='home'>
+                                <span><i className="fa fa-home" aria-hidden="true"></i></span>
+                                Home
+                            </NavLink>
+                        </li>
                         { displayRoomsMenu }
-                        <li className="menu__list__item"><span><i className="fa fa-gamepad" aria-hidden="true"></i></span>Games</li>
+                        <li className="menu__list__item">
+                            <NavLink onClick={this.handleClick} to={'/games'} alt='games'>
+                                <span><i className="fa fa-gamepad" aria-hidden="true"></i></span>
+                                Games    
+                            </NavLink>
+                        </li>
                     </ul>      
                 </nav>
             </Fragment>
@@ -57,12 +89,13 @@ class Menu extends Component {
 // Pass state into component props
 const mapStateToProps = state => {
     return {
-        isConnected: state.isConnected
+        isConnected: state.isConnected,
+        displayDropUp: state.displayDropUp
     }
 };
 
 // Access dispatch functions to props
-const mapDispatchToProps = { connected, disconnected };
+const mapDispatchToProps = { connected, disconnected, disableFooter };
 
 // connection to redux store
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

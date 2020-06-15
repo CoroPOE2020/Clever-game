@@ -5,16 +5,22 @@
 
 import React, { Fragment } from "react";
 
-import Content from './Content/Content';
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import Body from './Content/Body/Body';
+import Header from './Content/Header/Header';
+import Footer from './Content/Footer/Footer';
+
 // import Test from './Test/Test';
 
 
 const App = props => {
     return (
-        <Fragment>
-            <Content />
-            {/* <Test /> */}
-        </Fragment>
+        <Router>
+            <Header />
+            <Body />
+            <Footer />
+        </Router>
     );
 };
 

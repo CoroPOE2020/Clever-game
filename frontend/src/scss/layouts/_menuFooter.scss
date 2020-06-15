@@ -1,0 +1,90 @@
+.dropup__footer__menu {
+    
+        background-color: $stark-white;
+        position: absolute;
+        bottom: 100%;
+        width: 100%;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        padding:pxToRem(10px) 0;
+        
+        a  {
+            color: $black-pearl;
+            font-size: pxToRem(20px);
+            display: flex;
+            justify-content: center;
+            padding: pxToRem(10px) 0;
+            transition-property: border-bottom;
+            transition-duration: 2s;
+            transition-delay: 2s;
+        }
+
+        // .underline {
+        //     // background-image: linear-gradient(to right, blue 75%, transparent 75%);
+        //     // background-position: top 10px;
+        //     // background-repeat: repeat-x;
+        //     // background-size: 8px 3px;
+        //     border-bottom: 1px solid #000;
+        //     padding-bottom: 3px;
+        // }
+
+        .underline {
+            border-bottom: 1px solid $stark-white;
+            //   background-size: 6px 4px;
+            //   background-repeat: repeat-x;
+            //   background-position: 0% bottom;
+          
+           animation-name: underdlineAnimation;
+               animation-duration: 3s;
+               animation-delay: 1s;
+               animation-fill-mode: forwards;
+            //   animation-timing-function: linear;
+            //   animation-iteration-count: infinite;
+        }
+
+       
+
+        @keyframes underdlineAnimation{
+           
+            100%{
+                border-bottom: 1px solid black;
+
+            }
+        }
+
+        //.underline {
+            // animation-name: underlineAnim;
+            // animation-duration: 1s;   
+            // animation-timing-function: linear;     
+            // //visibility: visible !important;
+            // /* New code here: */
+            // animation-delay: 1s;
+            // display: inline-block;
+            //transition: border-bottom 0.5s ease 0s, left 0.5s ease 0s;
+        //}
+
+        // .underline:active {
+        //     border-bottom: 1px solid #000;
+        //     padding-bottom: 3px;
+        // }
+        
+        
+        
+
+     &__list__item__listsocial {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+     }
+ 
+}
+
+// .underline.menu-plus__list__item:active {
+//     background-color: red;
+//     transition-duration: 5s;
+// }
+
+// .footer__menu {
+
+// }
