@@ -12,15 +12,17 @@ class GameAction extends AbstractSearchAction
     protected $entity = Game::class;
     protected $apiEndpoint = 'games';
     protected $searchType = 'string';
-    protected $fields = 'name, rating, summary, url, age_ratings, first_release_date, cover';
+    protected $fields = 'name, rating, age_ratings, summary, url, first_release_date, cover, involved_companies, alternative_names';
     protected $options = 'where version_parent = null & category = 0';
 
-    public function __construct(ManagerRegistry $managerRegistry, ImportIgdb $importIgdb, GameImporter $gameImporter) {
+    public function __construct(ManagerRegistry $managerRegistry, ImportIgdb $importIgdb, GameImporter $gameImporter)
+    {
 
         parent::__construct(
             $managerRegistry,
-            $importIgdb,        
-            $gameImporter);
+            $importIgdb,
+            $gameImporter
+        );
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +52,22 @@ class Game
      * @ORM\Column(type="integer", nullable=true)
      */
     private $releaseDate;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company", inversedBy="games")
+     */
+    private $companies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AlternativeNames", mappedBy="game", cascade={"persist"})
+     */
+    private $alternativeNames;
+
+    public function __construct()
+    {
+        $this->companies = new ArrayCollection();
+        $this->alternativeNames = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -136,6 +154,63 @@ class Game
     public function setReleaseDate(?int $releaseDate): self
     {
         $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Company[]
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        if ($this->companies->contains($company)) {
+            $this->companies->removeElement($company);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AlternativeNames[]
+     */
+    public function getAlternativeNames(): Collection
+    {
+        return $this->alternativeNames;
+    }
+
+    public function addAlternativeName(AlternativeNames $alternativeName): self
+    {
+        if (!$this->alternativeNames->contains($alternativeName)) {
+            $this->alternativeNames[] = $alternativeName;
+            $alternativeName->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlternativeName(AlternativeNames $alternativeName): self
+    {
+        if ($this->alternativeNames->contains($alternativeName)) {
+            $this->alternativeNames->removeElement($alternativeName);
+            // set the owning side to null (unless already changed)
+            if ($alternativeName->getGame() === $this) {
+                $alternativeName->setGame(null);
+            }
+        }
 
         return $this;
     }

@@ -15,16 +15,16 @@ class ImportIgdb implements AssetInterface
         $this->httpclient = $httpclient;
     }
 
-    public function setImport($name, $apiEndpoint, $searchType, $fields, $options)
+    public function setImport($entry, $apiEndpoint, $searchType, $fields, $options)
     {
         $path = $this->setPath($this->url, $apiEndpoint);
-        $body = $this->createBodyRequest($fields, $searchType, $name, $options);
+        $body = $this->createBodyRequest($fields, $searchType, $entry, $options);
         $request = $this->httpclient->request('GET', $path, [
             'headers' => [
                 'user-key' => $_ENV['APP_IGDB_TOKEN']
             ],
 
-            'body' => $body 
+            'body' => $body
         ]);
 
         $data = $request->getContent();
@@ -40,14 +40,16 @@ class ImportIgdb implements AssetInterface
     public function createBodyRequest($fields, $searchType, $entry, $options)
     {
         if ($searchType == 'string') {
-            $body = 'fields ' . $fields . '; limit 50;  search "' . $entry . '"; ' . $options . ';' ;        
+            $body = 'fields ' . $fields . '; limit 50;  search "' . $entry . '"; ' . $options . ';';
             return $body;
-        }
-        elseif ($searchType == 'integer') {
+        } elseif ($searchType == 'integer') {
             $body = 'fields ' . $fields . '; limit 50;  where id = ' . $entry . ';';
             return $body;
-        }
-        $body = 'fields ' . $fields. '; limit 200;' . $options .';';
+        } elseif ($searchType == 'alt') {
+            $body = 'fields ' . $fields . '; limit 50;  where game = ' . $entry . ';';
             return $body;
+        }
+        $body = 'fields ' . $fields . '; limit 200;' . $options . ';';
+        return $body;
     }
 }

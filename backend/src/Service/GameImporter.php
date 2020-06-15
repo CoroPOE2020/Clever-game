@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\DTO\GameDto;
+use App\Entity\AlternativeNames;
 use App\Entity\Game;
 use App\Factory\IgdbFactory;
 use App\Repository\GameRepository;
@@ -16,10 +17,11 @@ class GameImporter implements ImporterInterface
     protected $gameRepository;
     protected $assetInterface;
     private $rating = 0;
-    private $summary = null;
+    private $summary = '';
     private $url = null;
     private $first_release_date = 0;
     private $image_id = null;
+    private $gameId = null;
 
 
     public function __construct(ManagerRegistry $managerRegistry, GameRepository $gameRepository, AssetInterface $assetInterface)
@@ -42,14 +44,20 @@ class GameImporter implements ImporterInterface
             return null;
         }
 
-        // verifier que le choix demandé existe. Si oui on le stock dans la variable créer.
-        // Sinon on laisse la valeur par defaut de la variable
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+        // die();
+
+
         isset($data->rating) ? $this->rating = $data->rating : $this->rating;
         isset($data->summary) ? $this->summary = $data->summary : $this->summary;
         isset($data->url) ? $this->url = $data->url : $this->url;
-        isset($data->first_release_date) ? $this->first_release_date = $data->first_release_date : $this->first_release_date;
+        isset($data->first_release_date) ? $this->first_release_date = $data->first_release_date : $this->first_release_date;        
 
         isset($data->cover) ? $this->image_id = $data->cover : $this->image_id = null;
+
+        isset($data->alternative_names) ? $this->gameId = $data->id : $this->gameId = null;
 
         $dto = new GameDto($data->id, $data->name, $this->rating, $this->summary, $this->url, $this->first_release_date);
 
@@ -63,8 +71,9 @@ class GameImporter implements ImporterInterface
         }
 
         $gameEntity = IgdbFactory::CreateGame($data);
-        
+
         $this->getGameCover($gameEntity);
+        $this->getAlternativeNames($gameEntity);
 
         return $gameEntity;
     }
@@ -94,5 +103,20 @@ class GameImporter implements ImporterInterface
         isset($cover) ? $response = $cover[0]->image_id : $response = null;
 
         $game->setCoverId($response);
+    }
+
+    protected function getAlternativeNames(Game $game): void
+    {
+        isset($this->gameId) ? $data = json_decode($this->assetInterface->setImport($this->gameId, 'alternative_names', 'alt', '*', '')) : $data = [];
+        $response = [];
+
+        foreach ($data as $entry) {
+
+            $altName = new AlternativeNames();
+            $altName->setName($entry->name);
+            isset($entry->comment) ? $altName->setComment($entry->comment) : $altName->setComment('');
+
+            $game->addAlternativeName($altName);
+        }
     }
 }
