@@ -49,11 +49,8 @@ class Menu extends Component {
         let menuClassesItems = '';
 
         if (this.state.isConnected) {
-            console.log('HERE');
             menuClassesItems = 'menu-75';
             displayRoomsMenu = (
-                
-                
              <li className="menu__list__item">
                  <NavLink onClick={this.handleClick} to={'/rooms'} alt='rooms'>
                     <span>
