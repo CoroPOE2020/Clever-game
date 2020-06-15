@@ -60,7 +60,9 @@ abstract class AbstractSearchAction
                 $this->dbExist  = true;
             }
         }
-
+        
+        // print_r(array_unique($repo['id']));
+        // die();
         return new JsonResponse($repo);
     }
 

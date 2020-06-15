@@ -23,8 +23,11 @@ class GameRepository extends ServiceEntityRepository
     public function findData ($value) 
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.name LIKE :val')
-            ->setParameter('val', "%$value%")            
+            ->andWhere('g.name LIKE :val
+                        OR an.name LIKE :val')
+            ->leftJoin('g.alternativeNames', 'an')
+            ->setParameter('val', "%$value%")  
+            ->distinct()   
             ->getQuery()
             ->getArrayResult()
         ;
