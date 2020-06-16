@@ -1,14 +1,10 @@
 /*
-    Plus Component
+    Profile Menu Component
     Wrapper for MenuFooter Component exclusively for mobile devices 
 */
 
 import React, { Fragment, Component } from 'react';
-//import { connect } from 'react-redux';
-
-//import store from '../../../../store/store';
-
-
+import { NavLink } from 'react-router-dom';
 
 
 class ProfileMenu extends Component {
@@ -18,29 +14,39 @@ class ProfileMenu extends Component {
 
 
     render() {
+
+        let dropDownContent = null;
+
+        if (this.props.connected === "yes") {
+            dropDownContent = (
+                <p>prout</p>
+            );
+        }
+        else {
+            dropDownContent = (
+                <nav className="sidemenu__dropdown">
+                    <ul className="sidemenu__dropdown__list">
+                        <li className="sidemenu_dropdown__list__item">
+                            <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={'/signin'} alt='signin'>
+                                Sign In
+                            </NavLink>
+                        </li>
+                        <li className='sidemenu_dropdown__list__item'>
+                            <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={'/signup'} alt='signup'>
+                                Sign Up
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+            );
+        };
+
         return (
             <Fragment>
+                { dropDownContent }
             </Fragment>
         )
     }
 }
 
-// // Pass state into component props
-// const mapStateToProps = state => {
-//     return {
-//         displayDropUp: state.displayDropUp,
-//         isConnected: state.isConnected
-//     }
-// };
-
-// // Access dispatch functions to props
-// const mapDispatchToProps = { 
-//     enableFooter, 
-//     disableFooter, 
-//     connected, 
-//     disconnected
-// };
-
-// connection to redux store
-//export default connect(mapStateToProps, mapDispatchToProps)(Plus);
 export default ProfileMenu;

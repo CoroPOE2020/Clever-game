@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import store from '../../../../store/store';
 
 import { enableDropDown, disableDropDown } from '../../../../store/slices/sideMenuSlice';
+import { connected, disconnected } from '../../../../store/slices/userSlice';
 
 import ProfileMenu from './ProfileMenu/ProfileMenu';
 
@@ -17,12 +18,14 @@ class SideMenu extends Component {
 
         this.state = {
             displayDropDown: false,
+            isConnected: true
         };
 
         // Applying modifications from store to state when actions are dispatched
         store.subscribe(() => {
             this.setState({
-                displayDropDown: store.getState().sideMenu.displayDropDown
+                displayDropDown: store.getState().sideMenu.displayDropDown,
+                isConnected: store.getState().user.isConnected
             });
         });
 
@@ -42,8 +45,14 @@ class SideMenu extends Component {
         let dropDown = null;
 
         if (this.state.displayDropDown) {
-            dropDown = <ProfileMenu dropDown='yes' click={this.handleClick}/>;
-        }
+            if (this.state.isConnected) {
+                dropDown = <ProfileMenu dropDown='yes' connected='yes' click={this.handleClick}/>;
+            }
+            else {
+                dropDown = <ProfileMenu dropDown='yes' connected='no' click={this.handleClick}/>;
+            };
+            
+        };
 
         return (
             <Fragment>
@@ -64,7 +73,8 @@ class SideMenu extends Component {
 
 const mapStateToProps = state => {
     return {
-        displayDropDown: state.displayDropDown
+        displayDropDown: state.displayDropDown,
+        isConnected: state.isConnected
     }
 };
 
