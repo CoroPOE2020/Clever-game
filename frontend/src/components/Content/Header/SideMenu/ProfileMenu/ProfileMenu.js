@@ -14,7 +14,7 @@ class ProfileMenu extends Component {
 
 
     render() {
-
+        console.log(this.props);
         let dropDownContent = null;
 
         if (this.props.connected === "yes") {
@@ -31,9 +31,12 @@ class ProfileMenu extends Component {
                                 Settings
                             </NavLink>
                         </li>
-                        {/* TODO: Redirect on Home page instead of disconnect route + change state isConnected to false */}
                         <li className="sidemenu_dropdown__list__item">
-                            <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={"/home"} alt="signup">
+                            <NavLink 
+                                onClick={this.props.disconnect}  
+                                className="sidemenu__dropdown__list__item__link" 
+                                to={"/home"} 
+                                alt="signup">
                                 Disconnect
                             </NavLink>
                         </li>

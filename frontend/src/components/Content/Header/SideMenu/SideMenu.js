@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import store from '../../../../store/store';
 
 import { enableDropDown, disableDropDown } from '../../../../store/slices/sideMenuSlice';
-import { connected, disconnected } from '../../../../store/slices/userSlice';
+import { disconnected } from '../../../../store/slices/userSlice';
 
 import ProfileMenu from './ProfileMenu/ProfileMenu';
 
@@ -30,6 +30,7 @@ class SideMenu extends Component {
         });
 
         this.handleClick = this.handleClick.bind(this);
+        this.disconnectHandler = this.disconnectHandler.bind(this);
     }
 
     handleClick() {
@@ -41,18 +42,23 @@ class SideMenu extends Component {
         }
     }
 
+    disconnectHandler() {
+        console.log('HERE')
+        this.props.disableDropDown();
+        this.props.disconnected();
+    }
+
     render() {
         let dropDown = null;
 
         if (this.state.displayDropDown) {
             if (this.state.isConnected) {
-                dropDown = <ProfileMenu dropDown='yes' connected='yes' click={this.handleClick}/>;
+                dropDown = <ProfileMenu dropDown='yes' connected='yes' click={this.handleClick} disconnect={this.disconnectHandler}/>;
             }
             else {
                 dropDown = <ProfileMenu dropDown='yes' connected='no' click={this.handleClick}/>;
             };
-            
-        };
+        }; 
 
         return (
             <Fragment>
@@ -81,7 +87,8 @@ const mapStateToProps = state => {
 // Access dispatch functions to props
 const mapDispatchToProps = { 
     enableDropDown,
-    disableDropDown
+    disableDropDown,
+    disconnected
 };
 
 // connection to redux store
