@@ -10,6 +10,9 @@ import { createLogger } from 'redux-logger';
 import footerSlice from './slices/footerSlice';
 import userSlice from './slices/userSlice';
 import formValidateSlice from './slices/formValidateSlice';
+import gameSlice from './slices/gameSlice';
+import gamesSlice from './slices/gamesSlice';
+import homeSlice from './slices/homeSlice';
 // import { checkAgePositive } from '../middleware/redux/checkAgePositive';
 // import { checkForm } from '../middleware/redux/checkForm';
 
@@ -27,7 +30,10 @@ const store = configureStore({
         //test: testSlice,
         footer: footerSlice, 
         user: userSlice,
-        formValidate: formValidateSlice
+        formValidate: formValidateSlice,
+        game: gameSlice,
+        games: gamesSlice,
+        home: homeSlice
     },
     middleware
 });
