@@ -13,6 +13,7 @@ import formValidateSlice from './slices/formValidateSlice';
 import gameSlice from './slices/gameSlice';
 import gamesSlice from './slices/gamesSlice';
 import homeSlice from './slices/homeSlice';
+import sideMenuSlice from './slices/sideMenuSlice';
 // import { checkAgePositive } from '../middleware/redux/checkAgePositive';
 // import { checkForm } from '../middleware/redux/checkForm';
 
@@ -33,7 +34,8 @@ const store = configureStore({
         formValidate: formValidateSlice,
         game: gameSlice,
         games: gamesSlice,
-        home: homeSlice
+        home: homeSlice,
+        sideMenu: sideMenuSlice
     },
     middleware
 });
