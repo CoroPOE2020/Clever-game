@@ -7,7 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // User initial state
 const userInitialState = {
-    isConnected: false
+    isConnected: true
 };
 
 // Handles both Actions and Reducers from Redux in slice objects

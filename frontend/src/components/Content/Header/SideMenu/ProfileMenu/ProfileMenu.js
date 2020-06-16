@@ -19,7 +19,26 @@ class ProfileMenu extends Component {
 
         if (this.props.connected === "yes") {
             dropDownContent = (
-                <p>prout</p>
+                <nav className="sidemenu__dropdown">
+                    <ul className="sidemenu__dropdown__list">
+                        <li className="sidemenu_dropdown__list__item">
+                            <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={"/profile"} alt="signin">
+                                My Profile
+                            </NavLink>
+                        </li>
+                        <li className="sidemenu_dropdown__list__item">
+                            <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={"/settings"} alt="signup">
+                                Settings
+                            </NavLink>
+                        </li>
+                        {/* TODO: Redirect on Home page instead of disconnect route + change state isConnected to false */}
+                        <li className="sidemenu_dropdown__list__item">
+                            <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={"/home"} alt="signup">
+                                Disconnect
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
             );
         }
         else {

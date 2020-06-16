@@ -18,7 +18,7 @@ class SideMenu extends Component {
 
         this.state = {
             displayDropDown: false,
-            isConnected: true
+            isConnected: false
         };
 
         // Applying modifications from store to state when actions are dispatched
