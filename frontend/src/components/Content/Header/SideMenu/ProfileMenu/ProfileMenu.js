@@ -55,7 +55,7 @@ class ProfileMenu extends Component {
                         </li>
                         <li className='sidemenu_dropdown__list__item'>
                             <NavLink onClick={this.props.click} className="sidemenu__dropdown__list__item__link" to={'/signup'} alt='signup'>
-                                <span className="underline">Sign Out</span>
+                                <span className="underline">Sign Up</span>
                             </NavLink>
                         </li>
                     </ul>

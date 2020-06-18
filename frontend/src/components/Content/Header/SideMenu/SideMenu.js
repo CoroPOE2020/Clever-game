@@ -9,6 +9,7 @@ import store from '../../../../store/store';
 
 import { enableDropDown, disableDropDown } from '../../../../store/slices/sideMenuSlice';
 import { disconnected } from '../../../../store/slices/userSlice';
+import { disableFooter } from '../../../../store/slices/footerSlice';
 
 import ProfileMenu from './ProfileMenu/ProfileMenu';
 
@@ -18,13 +19,16 @@ class SideMenu extends Component {
 
         this.state = {
             displayDropDown: false,
+            displayDropUp: false,
             isConnected: false
+            
         };
 
         // Applying modifications from store to state when actions are dispatched
         store.subscribe(() => {
             this.setState({
                 displayDropDown: store.getState().sideMenu.displayDropDown,
+                displayDropUp: store.getState().footer.displayDropUp,
                 isConnected: store.getState().user.isConnected
             });
         });
@@ -34,6 +38,10 @@ class SideMenu extends Component {
     }
 
     handleClick() {
+        if (this.state.displayDropUp) {
+            this.props.disableFooter();
+        }
+
         if (this.state.displayDropDown) {
             this.props.disableDropDown();
         }
@@ -43,6 +51,10 @@ class SideMenu extends Component {
     }
 
     disconnectHandler() {
+        if (this.state.displayDropUp) {
+            this.props.disableFooter();
+        }
+        
         this.props.disableDropDown();
         this.props.disconnected();
     }
@@ -79,6 +91,7 @@ class SideMenu extends Component {
 const mapStateToProps = state => {
     return {
         displayDropDown: state.displayDropDown,
+        displayDropUp: state.displayDropUp,
         isConnected: state.isConnected
     }
 };
@@ -87,7 +100,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = { 
     enableDropDown,
     disableDropDown,
-    disconnected
+    disconnected,
+    disableFooter
 };
 
 // connection to redux store
