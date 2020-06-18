@@ -54,7 +54,7 @@ class Game
     private $releaseDate;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Company", inversedBy="games")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company", inversedBy="games", cascade={"persist"})
      */
     private $companies;
 

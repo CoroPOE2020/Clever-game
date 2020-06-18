@@ -49,7 +49,7 @@ class Company
     private $igdbUrl;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Game", mappedBy="companies")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Game", mappedBy="companies", cascade={"persist"})
      */
     private $games;
 
