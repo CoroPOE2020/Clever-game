@@ -31,6 +31,7 @@ class GameImporter implements ImporterInterface
         $this->assetInterface = $assetInterface;
     }
 
+    // Get data from the DB and verify each fields
     public function read($data)
     {
         $result = $this->gameRepository->findOneBy([
@@ -38,18 +39,11 @@ class GameImporter implements ImporterInterface
         ]);
 
         if ($result !== null) {
-            // echo '<pre>';
-            // print_r("déjô lô");
-            // echo '</pre>';
+
             return null;
         }
 
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
-        // die();
-
-
+        // check if all fields exist
         isset($data->rating) ? $this->rating = $data->rating : $this->rating;
         isset($data->summary) ? $this->summary = $data->summary : $this->summary;
         isset($data->url) ? $this->url = $data->url : $this->url;
@@ -64,6 +58,7 @@ class GameImporter implements ImporterInterface
         return $dto;
     }
 
+    // Once datas are checked, they are stocked in their Entity
     public function process($data): ?Game
     {
         if ($data === null) {
@@ -78,6 +73,7 @@ class GameImporter implements ImporterInterface
         return $gameEntity;
     }
 
+    // Persist and flush datas with the objectManager 
     public function write($data)
     {
         $om = $this->getObjectManager();
@@ -96,19 +92,21 @@ class GameImporter implements ImporterInterface
         return $this->managerRegistry->getManagerForClass(Game::class);
     }
 
+    // For the image of the game, we need to use another endpoint 
     protected function getGameCover(Game $game): void
     {
-        isset($this->image_id) ? $cover = json_decode($this->assetInterface->setImport($this->image_id, 'covers', 'integer', 'image_id', '')) : $cover = null;
+        // if the game data contains a cover, we send a request to get the cover_id to IGDB
+        isset($this->image_id) ? $cover = json_decode($this->assetInterface->setImport($this->image_id, 'covers', 'byId', 'image_id', '')) : $cover = null;
 
         isset($cover) ? $response = $cover[0]->image_id : $response = null;
 
         $game->setCoverId($response);
     }
-
+    // Use another endpoint and set datas in Entity 
     protected function getAlternativeNames(Game $game): void
     {
-        isset($this->gameId) ? $data = json_decode($this->assetInterface->setImport($this->gameId, 'alternative_names', 'alt', '*', '')) : $data = [];
-        $response = [];
+        // if the game data contains alternatives names, we send a request to get the alternatives names to IGDB
+        isset($this->gameId) ? $data = json_decode($this->assetInterface->setImport($this->gameId, 'alternative_names', 'byGameId', '*', '')) : $data = [];
 
         foreach ($data as $entry) {
 

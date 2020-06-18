@@ -39,30 +39,30 @@ abstract class AbstractSearchAction
 
     public function ActionJsonResponse($name, $force = null)
     {
-
+        // if the variable force is not null, we set the variable dbExist to false and we send a request directly to IGDB api, without checking the database
         if ($force != null) {
 
             $this->dbExist = false;
             $this->execute($name);
         } else {
-
+            //  if the variable force is null, we check the database for result
             $repo = $this->managerRegistry->getRepository($this->entity)->findData($name);
 
+            // if the response from database is empty, we set the variable dbExist to false and we send a request to IGDB api
             if (empty($repo)) {
 
                 $this->dbExist = false;
                 $this->execute($name);
             }
         }
+        // if the IGDB api request sent results, we can now search those results on the database
         if ($this->igdbExist) {
             $repo = $this->managerRegistry->getRepository($this->entity)->findData($name);
             if (!empty($repo)) {
                 $this->dbExist  = true;
             }
         }
-        
-        // print_r(array_unique($repo['id']));
-        // die();
+
         return new JsonResponse($repo);
     }
 

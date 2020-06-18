@@ -9,6 +9,7 @@ class ImportIgdb implements AssetInterface
 {
     protected $httpclient;
     protected $url = 'https://api-v3.igdb.com';
+    protected $nbResult = 200;
 
     public function __construct(HttpClientInterface $httpclient)
     {
@@ -32,24 +33,41 @@ class ImportIgdb implements AssetInterface
         return $data;
     }
 
+    // Create url for search into igdb
     public function setPath($url, $path)
     {
         return join(DIRECTORY_SEPARATOR, [$url, $path]);
     }
 
+
     public function createBodyRequest($fields, $searchType, $entry, $options)
     {
-        if ($searchType == 'string') {
-            $body = 'fields ' . $fields . '; limit 50;  search "' . $entry . '"; ' . $options . ';';
-            return $body;
-        } elseif ($searchType == 'integer') {
-            $body = 'fields ' . $fields . '; limit 50;  where id = ' . $entry . ';';
-            return $body;
-        } elseif ($searchType == 'alt') {
-            $body = 'fields ' . $fields . '; limit 50;  where game = ' . $entry . ';';
-            return $body;
+        $body = '';
+        $bodyDefault = 'fields ' . $fields . '; limit ' . $this->nbResult . '; ';
+
+        switch($searchType) {
+
+            // Body request for searching game by name
+            case 'byString':
+                $body = $bodyDefault . 'search "' . $entry . '"; ' . $options . ';';
+            break;
+            
+            // Body request for searching cover by identifier
+            case 'byId':
+                $body = $bodyDefault . 'where id = ' . $entry . ';';
+            break;
+            
+            //  Body request for searching Alternative Name by GameIdentifier
+            case 'byGameId':
+                $body = $bodyDefault . 'where game = ' . $entry . ';';
+            break;
+
+            // Body request by default
+            default:
+                $body = $bodyDefault . $options . ';';
+            break;
         }
-        $body = 'fields ' . $fields . '; limit 200;' . $options . ';';
+
         return $body;
     }
 }

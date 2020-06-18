@@ -19,18 +19,18 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-
-    public function findData ($value) 
+    // Doing search into Game and AlternativeName Tables
+    public function findData($value)
     {
         return $this->createQueryBuilder('g')
             ->andWhere('g.name LIKE :val
                         OR an.name LIKE :val')
             ->leftJoin('g.alternativeNames', 'an')
-            ->setParameter('val', "%$value%")  
-            ->distinct()   
+            ->setParameter('val', "%$value%")
+            // return only distinct value 
+            ->distinct()
             ->getQuery()
-            ->getArrayResult()
-        ;
+            ->getArrayResult();
     }
 
     // /**

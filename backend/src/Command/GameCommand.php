@@ -12,6 +12,7 @@ class GameCommand extends AbstractIgdbCommand
     protected $argument = "Game\'s name";
     protected $fields = "name";
     protected $options  = "where version_parent = null & category = 0";
+    protected $searchType = "byString";
 
     /**
      * @param HttpClientInterface    $httpClient
@@ -21,7 +22,8 @@ class GameCommand extends AbstractIgdbCommand
         parent::__construct(
             static::$defaultName, 
             $httpClient, 
-            $this->description, 
+            $this->description,
+            $this->searchType,
             $this->argument,
             $this->fields,
             $this->options
