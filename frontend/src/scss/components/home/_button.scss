@@ -1,0 +1,24 @@
+.divbuttonwelcome {
+    display: flex;
+    justify-content: center;
+    margin: pxToRem(15px);
+}
+
+.button__welcomebutton {   
+        margin: pxToRem(10px);
+        font-size: pxToRem(20px);    
+        align-items: center;
+        cursor:pointer;
+        background-color: $vista-green;
+        color: $big-stone;
+        background: {
+            image: linear-gradient(45deg,$fuel-yellow 50%, transparent 50%);
+            position: 100%;
+            size: 400%;
+        }
+        transition: background 700ms ease-in-out;
+        
+        &:hover {
+            background-position: 0;
+        }
+}
