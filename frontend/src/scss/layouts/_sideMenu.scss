@@ -14,3 +14,32 @@
     }
 }
 
+.sidemenu__dropdown {
+    background-color: $stark-white;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding:pxToRem(10px) 0;
+
+    a  {
+        color: $black-pearl;
+        font-size: pxToRem(20px);
+        display: flex;
+        justify-content: center;
+        padding: pxToRem(10px) 0;
+        transition-property: border-bottom;
+        transition-duration: 2s;
+        transition-delay: 2s;
+    }
+
+    .underline {
+        border-bottom: 1px solid $stark-white;
+       animation-name: underdlineAnimation;
+        animation-duration: 3s;
+        animation-delay: 1s;
+        animation-fill-mode: forwards;
+    }
+}

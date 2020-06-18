@@ -19,7 +19,7 @@ const Body = props => {
             <Switch>
                 <Route exact path='/home' component={Home}/>
                 <Route exact path='/signin' component={SignIn} />
-                <Route exact path='/signin' component={SignUp} />
+                <Route exact path='/signup' component={SignUp} />
                 <Route exact path='/games' component={Games} />
                 <Route exact path='/game' component={Game} />
                 {/* <Route path='/signup' component={SignUp} /> */}

@@ -43,7 +43,6 @@ class SideMenu extends Component {
     }
 
     disconnectHandler() {
-        console.log('HERE')
         this.props.disableDropDown();
         this.props.disconnected();
     }
