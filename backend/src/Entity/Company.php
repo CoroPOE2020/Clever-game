@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +26,7 @@ class Company
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $indentifier;
+    private $identifier;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -46,6 +48,16 @@ class Company
      */
     private $igdbUrl;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Game", mappedBy="companies", cascade={"persist"})
+     */
+    private $games;
+
+    public function __construct()
+    {
+        $this->games = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,14 +75,14 @@ class Company
         return $this;
     }
 
-    public function getIndentifier(): ?int
+    public function getIdentifier(): ?int
     {
-        return $this->indentifier;
+        return $this->identifier;
     }
 
-    public function setIndentifier(?int $indentifier): self
+    public function setIdentifier(?int $identifier): self
     {
-        $this->indentifier = $indentifier;
+        $this->identifier = $identifier;
 
         return $this;
     }
@@ -119,6 +131,34 @@ class Company
     public function setIgdbUrl(?string $igdbUrl): self
     {
         $this->igdbUrl = $igdbUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Game[]
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Game $game): self
+    {
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->addCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): self
+    {
+        if ($this->games->contains($game)) {
+            $this->games->removeElement($game);
+            $game->removeCompany($this);
+        }
 
         return $this;
     }

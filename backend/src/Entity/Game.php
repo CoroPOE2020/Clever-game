@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,14 +24,14 @@ class Game
     private $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true, unique=true)
      */
     private $identifier;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imgUrl;
+    private $coverId;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -49,12 +51,23 @@ class Game
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $ageRating;
+    private $releaseDate;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Company", inversedBy="games", cascade={"persist"})
      */
-    private $releaseDate;
+    private $companies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\AlternativeNames", mappedBy="game", cascade={"persist"})
+     */
+    private $alternativeNames;
+
+    public function __construct()
+    {
+        $this->companies = new ArrayCollection();
+        $this->alternativeNames = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,14 +98,14 @@ class Game
         return $this;
     }
 
-    public function getImgUrl(): ?string
+    public function getCoverId(): ?string
     {
-        return $this->imgUrl;
+        return $this->coverId;
     }
 
-    public function setImgUrl(?string $imgUrl): self
+    public function setCoverId(?string $coverId): self
     {
-        $this->imgUrl = $imgUrl;
+        $this->coverId = $coverId;
 
         return $this;
     }
@@ -133,18 +146,6 @@ class Game
         return $this;
     }
 
-    public function getAgeRating(): ?int
-    {
-        return $this->ageRating;
-    }
-
-    public function setAgeRating(?int $ageRating): self
-    {
-        $this->ageRating = $ageRating;
-
-        return $this;
-    }
-
     public function getReleaseDate(): ?int
     {
         return $this->releaseDate;
@@ -153,6 +154,63 @@ class Game
     public function setReleaseDate(?int $releaseDate): self
     {
         $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Company[]
+     */
+    public function getCompanies(): Collection
+    {
+        return $this->companies;
+    }
+
+    public function addCompany(Company $company): self
+    {
+        if (!$this->companies->contains($company)) {
+            $this->companies[] = $company;
+        }
+
+        return $this;
+    }
+
+    public function removeCompany(Company $company): self
+    {
+        if ($this->companies->contains($company)) {
+            $this->companies->removeElement($company);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AlternativeNames[]
+     */
+    public function getAlternativeNames(): Collection
+    {
+        return $this->alternativeNames;
+    }
+
+    public function addAlternativeName(AlternativeNames $alternativeName): self
+    {
+        if (!$this->alternativeNames->contains($alternativeName)) {
+            $this->alternativeNames[] = $alternativeName;
+            $alternativeName->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlternativeName(AlternativeNames $alternativeName): self
+    {
+        if ($this->alternativeNames->contains($alternativeName)) {
+            $this->alternativeNames->removeElement($alternativeName);
+            // set the owning side to null (unless already changed)
+            if ($alternativeName->getGame() === $this) {
+                $alternativeName->setGame(null);
+            }
+        }
 
         return $this;
     }

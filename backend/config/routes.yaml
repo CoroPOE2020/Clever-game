@@ -1,3 +1,9 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+game:
+    path: /game/{game}/{force}
+    controller: App\Action\GameAction
+    defaults:
+        force: null
