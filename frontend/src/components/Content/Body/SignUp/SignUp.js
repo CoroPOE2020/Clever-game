@@ -5,9 +5,35 @@
 
 import React, { Fragment, Component } from 'react';
 
+import store from '../../../../store/store';
+ 
+import Button from '../../../UI/Button/Button';
+
 class SignUp extends Component {
     constructor(props) {
         super(props);
+
+        // this.state = {
+        //     newUser: {
+        //         nickname: '',
+        //         email: '',
+        //         birthday: '',
+        //         password: ''
+        //     }
+        // }
+
+        // store.subscribe(() => {
+        //     this.setState({
+        //         newUser: {
+        //             nickname: store.getState().user.,
+        //             email: '',
+        //             birthday: '',
+        //             password: ''
+        //         }
+        //     });
+        // });
+
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event){
@@ -17,47 +43,34 @@ class SignUp extends Component {
 
     render () {
         return (
-            <form>
-                <div>
-                    <label>Nickname</label>
-                    <input/>
+            <Fragment>
+                <div className="signup">
+                    <p className="signup__text">Fill this form to join our community!</p>
+                    <form className="signup__form">
+                        <label for="nickname">Nickname</label>
+                        <input type="text"/>
+
+                        <label for="email">Email</label>
+                        <input type="text"/>
+
+                        <label for="birthdate">Date of Birth</label>
+                        <div className="signup__form__birthdate">
+                            <input className="signup__form__birthdate__day" type="number" placeholder="DD"/>
+                            <input className="signup__form__birthdate__month" type="number" placeholder="MM"/>
+                            <input className="signup__form__birthdate__year"type="number" placeholder="YYYY"/>
+                        </div>  
+                        
+                    
+                        <label for="password">Password</label>
+                        <input type="password"/>
+
+                        <Button>Join us !</Button>
+                    </form>
                 </div>
-                <div>
-                    <label>Email</label>
-                    <input/>
-                </div>
-                <div>
-                    <label>Birthday</label>
-                    <input/>
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input/>
-                </div>
-            </form>
+                
+            </Fragment>
         )
     }
 }
-//         <form onSubmit={handleSubmit}>
-//           <div>
-//           <label htmlFor="email">Email</label>
-//           <input
-//             type="email"
-//             id="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//           />
-//           </div>
-//           <div>
-//           <label htmlFor="password">Password</label>
-//           <input
-//             type="password"
-//             id="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//           </div>
-//         </form>
-// }
 
 export default SignUp;

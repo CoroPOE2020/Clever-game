@@ -1,0 +1,51 @@
+.signup {
+    width: 80%;
+    margin: 10% auto;
+    
+    &__text {
+        text-align: center;
+        font-size: pxToRem(30px);
+        font-weight: bold;
+        color: $fuel-yellow;
+        margin-bottom: pxToRem(30px);
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        border: solid pxToRem(3px);
+        border-color: $fuel-yellow;
+        border-radius: pxToRem(20px);
+        padding: pxToRem(20px);
+
+        label {
+            font-size: pxToRem(20px);
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: pxToRem(5px);
+        }
+
+        input {
+            width: 100%;
+            background-color: $stark-white;
+            border-radius: pxToRem(15px);
+            padding: pxToRem(10px);
+            margin-bottom: pxToRem(20px);
+        }
+
+        &__birthdate {
+            display: flex;
+            flex-direction: row;
+            width:100%;
+
+            input {
+                margin-left: pxToRem(5px);
+            }
+
+            &__year {
+                width: 50%;
+            }
+        }
+    }
+}
