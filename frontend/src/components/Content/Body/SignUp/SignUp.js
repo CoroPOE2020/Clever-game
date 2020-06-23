@@ -44,30 +44,86 @@ class SignUp extends Component {
     render () {
         return (
             <Fragment>
-                <div className="signup">
-                    <p className="signup__text">Fill this form to join our community!</p>
-                    <form className="signup__form">
-                        <label for="nickname">Nickname</label>
-                        <input type="text"/>
+                <form className="signup__form">
+                    <p className="signup__form__text">Join Us!</p>
+                    {/* <label for="nickname">Nickname</label>
+                    <input type="text"/>
 
-                        <label for="email">Email</label>
-                        <input type="text"/>
+                    <label for="email">Email</label>
+                    <input type="text"/>
 
-                        <label for="birthdate">Date of Birth</label>
-                        <div className="signup__form__birthdate">
-                            <input className="signup__form__birthdate__day" type="number" placeholder="DD"/>
-                            <input className="signup__form__birthdate__month" type="number" placeholder="MM"/>
-                            <input className="signup__form__birthdate__year"type="number" placeholder="YYYY"/>
-                        </div>  
-                        
+                    <label for="birthdate">Date of Birth</label>
+                    <div className="signup__form__birthdate">
+                        <input className="signup__form__birthdate__day" type="number" placeholder="DD"/>
+                        <input className="signup__form__birthdate__month" type="number" placeholder="MM"/>
+                        <input className="signup__form__birthdate__year"type="number" placeholder="YYYY"/>
+                    </div>  
                     
-                        <label for="password">Password</label>
-                        <input type="password"/>
-
-                        <Button>Join us !</Button>
-                    </form>
-                </div>
                 
+                    <label for="password">Password</label>
+                    <input type="password"/> */}
+                    {/* <div className="signup__form__group">
+                        <label for="nickname" className="signup__form__group__label">Nickname</label>
+                        <input type="text" className="signup__form__group__input" placeholder="Nickname" name="nickname" required/>
+                    </div>
+                    
+                    <div className="signup__form__group">
+                        <label for="email" className="signup__form__group__label">Email</label>
+                        <input type="text" className="signup__form__group__input"/>
+                    </div>
+                    <div className="signup__form__group">
+                        <label for="birthdate" className="signup__form__group__label">Date of Birth</label>
+                        <input className="signup__form__group__input" type="number" placeholder="DD"/>
+                        <input className="signup__form__group__input" type="number" placeholder="MM"/>
+                        <input className="signup__form__group__input" type="number" placeholder="YYYY"/> 
+                    </div>
+                    
+                    <div className="signup__form__group">
+                        <label for="password" className="signup__form__group__label">Password</label>
+                        <input type="password" className="signup__form__group__input"/>
+                    </div> */}
+
+                    <div className="signup__form__box">
+                        <label className="signup__form__label" for="regUsername">username</label>
+                        <input className="signup__form__input" type="text" name="Username" id="regUsername"/>
+                        <i className="signup__form__icon fa fa-user" aria-hidden="true"></i>
+                        <i className="signup__form__icon--error fa fa-exclamation" aria-hidden="true"></i>
+                        <span className="signup__form__message"></span>
+                    </div>
+
+                    <div className="signup__form__box">
+                        <label className="signup__form__label" for="email">email</label>
+                        <input className="signup__form__input" type="email" name="Email" id="email"/>
+                        <i className="signup__form__icon fa fa-envelope" aria-hidden="true"></i>
+                        <i className="signup__form__icon--error fa fa-exclamation" aria-hidden="true"></i>
+                        <span className="signup__form__message"></span>
+                    </div>
+
+                    <div className="signup__form__box">
+                        <label className="signup__form__label" for="regPassword">password</label>
+                        <input className="signup__form__input" type="password" name="Password" id="regPassword"/>
+                        <i className="signup__form__icon fa fa-lock" aria-hidden="true"></i>
+                        <i className="signup__form__eye fa fa-eye" aria-hidden="true"></i>
+                        <i className="signup__form__icon--error fa fa-exclamation" aria-hidden="true"></i>
+                        <span className="signup__form__message"></span>
+                    </div>
+
+                    <div className="signup__form__box">
+                        <label className="signup__form__label" for="confirmPassword">confirm password</label>
+                        <input className="signup__form__input" type="password" name="Confirm password" id="confirmPassword"/>
+                        <i className="signup__form__icon fa fa-lock" aria-hidden="true"></i>
+                        <i className="signup__form__eye fa fa-eye" aria-hidden="true"></i>
+                        <i className="signup__form__icon--error " aria-hidden="true"></i>
+                        <span className="signup__form__message fa fa-exclamation"></span>
+                    </div>
+
+                    <div className="signup__form__submit">
+                        <span className="signup___form__submit__text">register</span>
+                        <Button id="registerSubmit" className="submit__button" type="submit">
+                            <i className="signup__form__submit__icon fa fa-arrow-right" aria-hidden="true"></i>
+                        </Button>
+                    </div>
+                </form>
             </Fragment>
         )
     }
