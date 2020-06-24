@@ -23,8 +23,8 @@ button, input {
         font-size: pxToRem(30px);
         font-weight: bold;
         color: $fuel-yellow;
-        margin-top: pxToRem(30px);
-        margin-bottom: pxToRem(40px);
+        margin-top: pxToRem(10px);
+        margin-bottom: pxToRem(30px);
     }
 
     &__element {
@@ -36,6 +36,7 @@ button, input {
     &__label {
         position: absolute;
         font-size: pxToRem(14px);
+        font-weight: bold;
         color: #c9d8f3;
         left: pxToRem(50px);
         top: pxToRem(17px);
@@ -66,7 +67,7 @@ button, input {
         position: absolute;
         top: pxToRem(16px);
         left: pxToRem(16px);
-        font-size: pxToRem(18px);
+        font-size: pxToRem(20px);
         color: #c9d8f3;
 
         &__error {
@@ -88,6 +89,66 @@ button, input {
         transition: all 250ms ease-in-out;
         opacity: 0.25;
         color: #c9d8f3;
+
+        &:hover {
+            opacity: 1;
+            color: #7b9ad8;
+        }
+    }
+
+    &__message {
+        position: absolute;
+        left: pxToRem(50px);
+        top: pxToRem(56px);
+        font-size: pxToRem(12px);
+        color: #7b9ad8;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    &__submit {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        justify-items: right;
+        align-items: center;
+        margin: 0 pxToRem(10px) 0 auto;
+        padding-bottom: 40px;
+        width: 75%;
+
+        &__text {
+            font-size: pxToRem(15px);
+            font-weight: bold;
+            color: #7b9ad8;
+            letter-spacing: pxToRem(5px);
+            text-transform: uppercase;
+            margin-right: pxToRem(10px);
+        }
+
+        &__button {
+            height: pxToRem(60px);
+            width: pxToRem(60px);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: pxToRem(10px) pxToRem(10px) pxToRem(20px) 0 #1e2031, 
+                pxToRem(-2px) pxToRem(-2px) pxToRem(30px) 0 $stark-white;
+
+            &:active {
+                transform: scale(0.98);
+                box-shadow: inset pxToRem(10px) pxToRem(10px) pxToRem(20px) 0 #1e2031,
+                    inset pxToRem(-5px) pxToRem(-5px) pxToRem(20px) 0 $stark-white;
+            }
+        }
+
+        &__icon {
+            color: #c9d8f3;
+            padding: pxToRem(12px) pxToRem(8px);
+            font-size: pxToRem(24px);
+            transition: all 250ms ease-in-out;
+
+            &:hover {
+                color: #7b9ad8;
+            }
+        }
     }
 
 

@@ -15,7 +15,8 @@ class Button extends Component {
         const cssClasses = ["button"];
 
         if (this.props.btnClass) {
-            cssClasses.push('button__' + this.props.btnClass);
+            //cssClasses.push('button__' + this.props.btnClass);
+            cssClasses.push(this.props.btnClass);
         }
         
         /*

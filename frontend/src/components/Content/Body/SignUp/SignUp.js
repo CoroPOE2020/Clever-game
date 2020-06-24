@@ -113,13 +113,13 @@ class SignUp extends Component {
                         <input className="signup__form__input" type="password" name="Confirm password" id="confirmPassword"/>
                         <i className="signup__form__icon fa fa-lock" aria-hidden="true"></i>
                         <i className="signup__form__eye fa fa-eye" aria-hidden="true"></i>
-                        <i className="signup__form__icon--error " aria-hidden="true"></i>
-                        <span className="signup__form__message fa fa-exclamation"></span>
+                        <i className="signup__form__icon--error fa fa-exclamation" aria-hidden="true"></i>
+                        <span className="signup__form__message"></span>
                     </div>
 
                     <div className="signup__form__submit">
-                        <span className="signup___form__submit__text">register</span>
-                        <Button id="registerSubmit" className="submit__button" type="submit">
+                        <span className="signup__form__submit__text">register</span>
+                        <Button btnClass="signup__form__submit__button" submit="yes">
                             <i className="signup__form__submit__icon fa fa-arrow-right" aria-hidden="true"></i>
                         </Button>
                     </div>
