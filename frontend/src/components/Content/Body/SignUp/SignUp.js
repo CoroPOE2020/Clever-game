@@ -46,42 +46,6 @@ class SignUp extends Component {
             <Fragment>
                 <form className="signup__form">
                     <p className="signup__form__text">Join Us!</p>
-                    {/* <label for="nickname">Nickname</label>
-                    <input type="text"/>
-
-                    <label for="email">Email</label>
-                    <input type="text"/>
-
-                    <label for="birthdate">Date of Birth</label>
-                    <div className="signup__form__birthdate">
-                        <input className="signup__form__birthdate__day" type="number" placeholder="DD"/>
-                        <input className="signup__form__birthdate__month" type="number" placeholder="MM"/>
-                        <input className="signup__form__birthdate__year"type="number" placeholder="YYYY"/>
-                    </div>  
-                    
-                
-                    <label for="password">Password</label>
-                    <input type="password"/> */}
-                    {/* <div className="signup__form__group">
-                        <label for="nickname" className="signup__form__group__label">Nickname</label>
-                        <input type="text" className="signup__form__group__input" placeholder="Nickname" name="nickname" required/>
-                    </div>
-                    
-                    <div className="signup__form__group">
-                        <label for="email" className="signup__form__group__label">Email</label>
-                        <input type="text" className="signup__form__group__input"/>
-                    </div>
-                    <div className="signup__form__group">
-                        <label for="birthdate" className="signup__form__group__label">Date of Birth</label>
-                        <input className="signup__form__group__input" type="number" placeholder="DD"/>
-                        <input className="signup__form__group__input" type="number" placeholder="MM"/>
-                        <input className="signup__form__group__input" type="number" placeholder="YYYY"/> 
-                    </div>
-                    
-                    <div className="signup__form__group">
-                        <label for="password" className="signup__form__group__label">Password</label>
-                        <input type="password" className="signup__form__group__input"/>
-                    </div> */}
 
                     <div className="signup__form__element">
                         <label className="signup__form__label" for="regUsername">username</label>
