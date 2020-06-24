@@ -83,7 +83,7 @@ class SignUp extends Component {
                         <input type="password" className="signup__form__group__input"/>
                     </div> */}
 
-                    <div className="signup__form__box">
+                    <div className="signup__form__element">
                         <label className="signup__form__label" for="regUsername">username</label>
                         <input className="signup__form__input" type="text" name="Username" id="regUsername"/>
                         <i className="signup__form__icon fa fa-user" aria-hidden="true"></i>
@@ -91,7 +91,7 @@ class SignUp extends Component {
                         <span className="signup__form__message"></span>
                     </div>
 
-                    <div className="signup__form__box">
+                    <div className="signup__form__element">
                         <label className="signup__form__label" for="email">email</label>
                         <input className="signup__form__input" type="email" name="Email" id="email"/>
                         <i className="signup__form__icon fa fa-envelope" aria-hidden="true"></i>
@@ -99,7 +99,7 @@ class SignUp extends Component {
                         <span className="signup__form__message"></span>
                     </div>
 
-                    <div className="signup__form__box">
+                    <div className="signup__form__element">
                         <label className="signup__form__label" for="regPassword">password</label>
                         <input className="signup__form__input" type="password" name="Password" id="regPassword"/>
                         <i className="signup__form__icon fa fa-lock" aria-hidden="true"></i>
@@ -108,8 +108,8 @@ class SignUp extends Component {
                         <span className="signup__form__message"></span>
                     </div>
 
-                    <div className="signup__form__box">
-                        <label className="signup__form__label" for="confirmPassword">confirm password</label>
+                    <div className="signup__form__element">
+                        <label className="signup__form__label" for="confirmPassword">confirm</label>
                         <input className="signup__form__input" type="password" name="Confirm password" id="confirmPassword"/>
                         <i className="signup__form__icon fa fa-lock" aria-hidden="true"></i>
                         <i className="signup__form__eye fa fa-eye" aria-hidden="true"></i>
