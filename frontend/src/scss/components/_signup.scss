@@ -10,7 +10,7 @@ button, input {
     justify-content: center;
     align-items: center;
     width: 90%;
-    margin: 10% auto;
+    margin: 8% auto;
     padding: pxToRem(20px);
     border-radius: pxToRem(10px);
     box-shadow: 0 pxToRem(5px) pxToRem(30px) 0 $stark-white;
@@ -24,7 +24,7 @@ button, input {
         font-weight: bold;
         color: $fuel-yellow;
         margin-top: pxToRem(10px);
-        margin-bottom: pxToRem(30px);
+        margin-bottom: pxToRem(20px);
     }
 
     &__element {
@@ -147,6 +147,33 @@ button, input {
 
             &:hover {
                 color: #7b9ad8;
+            }
+        }
+    }
+    
+    &__existacc {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-transform: uppercase;
+
+        &__text {
+            font-size: pxToRem(14px);
+            color: #c9d8f3;
+            letter-spacing: pxToRem(4px);
+            margin-bottom: pxToRem(5px);
+        }
+
+        &__link {
+            cursor: pointer;
+            color: #7b9ad8;
+            opacity: 1; // put 0.5 opacit in desktop and 1 on hover
+            font-size: pxToRem(15px);
+            transition: all 250ms ease-in-out;
+
+            &:hover {
+                opacity: 1;
             }
         }
     }

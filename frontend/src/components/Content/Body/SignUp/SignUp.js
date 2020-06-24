@@ -123,6 +123,11 @@ class SignUp extends Component {
                             <i className="signup__form__submit__icon fa fa-arrow-right" aria-hidden="true"></i>
                         </Button>
                     </div>
+
+                    <div className="signup__form__existacc">
+                        <p className="signup__form__existacc__text">use existing account</p>
+                        <p className="signup__form__existacc__link">login</p>
+                    </div>
                 </form>
             </Fragment>
         )
